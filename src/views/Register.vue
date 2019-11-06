@@ -101,7 +101,6 @@ export default {
             const response = await this.$store.dispatch('createAccount', request);
             console.log('register response: %o', response);
             if (response.isCreated) {
-                await this.$store.dispatch('init');
                 this.$router.push('/account');
             } else {
                 this.error = true;

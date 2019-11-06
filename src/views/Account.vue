@@ -45,6 +45,9 @@
                         </template>
                         </v-switch>
                     </v-row>
+                    <v-row justify="center" class="pt-5 px-5" v-if="isRegistrationError">
+                        <p>Registration error</p>
+                    </v-row>
                 </v-card>
             </v-col>
         </v-row>
@@ -58,6 +61,7 @@ export default {
     data() {
         return {
             editableLoginShieldIsEnabled: null,
+            isRegistrationError: false,
         };
     },
 
@@ -76,6 +80,7 @@ export default {
             }
             return { isRegistered: false, isEnabled: false };
         },
+        /*
         loginshieldSwitch: {
             get() {
                 if (this.currentAccount) {
@@ -88,6 +93,7 @@ export default {
                 this.$store.dispatch('editAccount', { id: this.currentAccount.id, isGravatarEnabled: value });
             },
         },
+        */
     },
 
     watch: {
@@ -104,8 +110,16 @@ export default {
                 this.$router.push('/login');
             }
         },
-        registerLoginShieldUser() {
-            console.log('TODO: start registration');
+        async registerLoginShieldUser() {
+            this.isRegistrationError = false;
+            const response = await this.$store.dispatch('editAccount', { action: 'register-loginshield-user' });
+            if (response.forward) {
+                // redirect user to loginshield.com for registration
+                window.location = response.forward;
+            }
+            if (response.error) {
+                this.isRegistrationError = true;
+            }
         },
     },
 

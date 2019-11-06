@@ -121,23 +121,32 @@ export default new Vuex.Store({
             commit('loading', { loadAccount: false });
         },
         async editAccount({ commit, state }, accountInfo) {
+            let response;
             commit('loading', { editAccount: true });
             try {
-                const { isEdited } = await client.account.edit(accountInfo);
+                const { isEdited, forward } = await client.account.edit(accountInfo);
                 if (isEdited) {
                     // https://vuex.vuejs.org/guide/mutations.html#mutations-follow-vue-s-reactivity-rules
                     const newAccountInfo = { ...state.account, ...accountInfo };
                     commit('setAccount', newAccountInfo);
                 }
+                response = { isEdited, forward };
             } catch (err) {
                 console.log('editUser error: %o', err);
+                response = { error: true };
             }
             commit('loading', { editAccount: false });
+            return response;
         },
-        async createAccount({ commit, dispatch }, accountInfo) {
+        async createAccount({ commit, dispatch, state }, accountInfo) {
             commit('loading', { createAccount: true });
             const response = await client.account.register(accountInfo);
-            await dispatch('loadAccount');
+            if (response.isCreated) {
+                await dispatch('loadSession');
+                if (state.session.isAuthenticated) {
+                    await dispatch('loadAccount');
+                }
+            }
             commit('loading', { createAccount: false });
             return response;
         },

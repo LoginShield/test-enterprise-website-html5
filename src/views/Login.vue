@@ -28,9 +28,9 @@
                     </v-form>
                 </v-card>
             </v-col>
-            <v-row justify="center" class="py-5" v-if="error">
-                <p class="body-1 font-weight-light">Incorrect username or password</p>
-            </v-row>
+        </v-row>
+        <v-row justify="center" class="py-5" v-if="error">
+            <p class="body-1 font-weight-light">Incorrect username or password</p>
         </v-row>
 
     </v-container>

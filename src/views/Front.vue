@@ -6,7 +6,7 @@
             </v-col>
         </v-row>
         <v-row justify="center" class="py-5 pb-10">
-            <v-col style="text-align: center">
+            <v-col class="justify" >
                  <ol>
                      <li>Create a new account (username &amp; password)</li>
                      <li>Enable LoginShield</li>
