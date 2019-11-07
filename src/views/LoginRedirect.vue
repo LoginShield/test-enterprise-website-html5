@@ -15,7 +15,7 @@
             <v-col cols="12" sm="12" md="6" lg="6" xl="6">
                 <div class="pa-5 text-center">
                     <p class="headline font-weight-light">Loading...</p>
-                    <v-progress-circular indeterminate class="mt-5 center" color="blue" size="96"></v-progress-circular>
+                    <v-progress-circular indeterminate class="mt-5 center" color="green" size="96"></v-progress-circular>
                 </div>
             </v-col>
         </v-row>

@@ -25,7 +25,7 @@
                     ></v-text-field>
                     <v-card-actions>
                         <v-row justify="center">
-                            <v-btn tile elevation="6" class="blue white--text" @click="register" :disabled="!registrationForm">
+                            <v-btn tile elevation="6" class="green white--text" @click="register" :disabled="!registrationForm">
                                 <font-awesome-icon icon="check" fixed-width/>&nbsp;Register
                             </v-btn>
                         </v-row>

@@ -2,13 +2,13 @@
     <nav>
         <v-app-bar fixed fade-on-scroll elevation="4" height="48">
             <router-link to="/" style="text-decoration: none" v-if="!isAuthenticated">
-                <v-toolbar-title>
-                    <v-img :src="require('@/assets/loginshield_word_with_logo_left_transparent_373x64.png')" class="mr-1 float-left" max-width="215" max-height="36"/>
+                <v-toolbar-title class="green--text overline" style="font-size: 16px!important;">
+                    LoginShield Enterprise Demo
                 </v-toolbar-title>
             </router-link>
             <router-link to="/account" style="text-decoration: none" v-if="isAuthenticated">
-                <v-toolbar-title>
-                    <v-img :src="require('@/assets/loginshield_word_with_logo_left_transparent_373x64.png')" class="mr-1 float-left" max-width="215" max-height="36"/>
+                <v-toolbar-title class="green--text overline" style="font-size: 16px!important;">
+                    LoginShield Enterprise Demo
                 </v-toolbar-title>
             </router-link>
             <v-progress-linear
@@ -16,12 +16,12 @@
                 :indeterminate="isLoading"
                 absolute
                 bottom
-                color="blue"
+                color="green"
             ></v-progress-linear>
             <v-spacer></v-spacer>
             <div v-if="!isAuthenticated">
                 <div v-show="$vuetify.breakpoint.smAndUp">
-                    <v-tabs slider-color="blue" right>
+                    <v-tabs slider-color="green" right color="green">
                         <v-tab to="/" v-show="false"></v-tab>
                         <!-- <v-tab to="/software">Software</v-tab> -->
                         <v-tab to="/login">Login</v-tab>
@@ -31,10 +31,10 @@
                     <v-menu offset-y>
                         <template v-slot:activator="{ on }">
                             <v-btn text v-on="on">
-                                <font-awesome-icon right class="blue--text" icon="bars" fixed-width/>
+                                <font-awesome-icon right class="green--text" icon="bars" fixed-width/>
                             </v-btn>
                         </template>
-                        <v-tabs vertical slider-color="blue">
+                        <v-tabs vertical slider-color="green" color="green">
                             <v-tab to="/" v-show="false"></v-tab>
                             <!-- <v-tab class="ml-0" to="/software">Software</v-tab> -->
                             <v-tab to="/login">Login</v-tab>
@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div v-if="isAuthenticated">
-                <v-tabs slider-color="blue">
+                <v-tabs slider-color="green" color="green">
                     <!-- Show toolbar buttons on large screens -->
                     <v-tab to="/account" v-show="false"></v-tab>
                     <v-menu offset-y>
@@ -53,7 +53,7 @@
                             </v-tab>
                         </template>
                         <v-list class="ma-0 pa-0">
-                            <v-list-item to="/account" class="lighten-5 blue" style="padding-left: 8px;">
+                            <v-list-item to="/account" class="lighten-5 green" style="padding-left: 8px;">
                                 <v-list-item-avatar style="margin-right: 8px;">
                                     <Avatar :attr="account" size="32"/>
                                 </v-list-item-avatar>
@@ -64,7 +64,7 @@
                             </v-list-item>
                             <v-divider></v-divider>
                             <div>
-                                <v-tabs vertical slider-color="blue" class="menutabs">
+                                <v-tabs vertical slider-color="green" class="menutabs" color="green">
                                     <v-tab to="/account" v-show="false"></v-tab>
                                     <v-divider></v-divider>
                                     <v-tab @click="logout">Logout</v-tab>

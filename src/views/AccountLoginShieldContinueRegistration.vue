@@ -22,7 +22,7 @@
                         </p>
                     </v-row>
                     <v-row justify="center" class="pt-5 px-5">
-                        <v-btn tile elevation="6" class="blue white--text" @click="login">
+                        <v-btn tile elevation="6" class="green white--text" @click="login">
                             Login
                         </v-btn>
                     </v-row>

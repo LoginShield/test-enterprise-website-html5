@@ -30,14 +30,14 @@
                         <p>Click the button to setup LoginShield for this account:</p>
                     </v-row>
                     <v-row justify="center" class="pt-5 px-5" v-if="!account.loginshield.isRegistered">
-                        <v-btn tile elevation="6" class="blue white--text" @click="registerLoginShieldUser">
+                        <v-btn tile elevation="6" class="green white--text" @click="registerLoginShieldUser">
                             <font-awesome-icon icon="check" fixed-width/>&nbsp;Register
                         </v-btn>
                     </v-row>
                     <v-row justify="center" class="pt-5 px-5" v-if="account.loginshield.isRegistered">
                         <v-switch
                             v-model="editableLoginShieldIsEnabled"
-                            color="blue"
+                            color="green"
                             hide-details
                         >
                         <template v-slot:label>

@@ -1,8 +1,8 @@
 <template>
     <v-footer dark padless>
         <v-row justify="center" no-gutters>
-            <v-col cols="12" class="blue">
-                <v-row justify="start" align="center" class="py-1 px-6">
+            <v-col cols="12" class="green">
+                <v-row justify="center" align="center" class="py-1 px-6">
                     <div style="display: inline-block;">
                         <span class="body-2">FOR DEMONSTRATION ONLY</span>
                     </div>

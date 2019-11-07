@@ -1,23 +1,39 @@
 <template>
-    <v-container class="pa-0">
+    <v-container class="py-10 px-2">
         <v-row justify="center"  class="py-5">
             <v-col style="text-align: center">
-                 <h1 class="display-2 font-weight-light">Enterprise integration</h1>
+                 <h1 class="display-1 font-weight-light">Try LoginShield</h1>
             </v-col>
         </v-row>
         <v-row justify="center" class="py-5 pb-10">
-            <v-col class="justify" >
-                 <ol>
-                     <li>Create a new account (username &amp; password)</li>
-                     <li>Enable LoginShield</li>
-                     <li>Login with LoginShield</li>
-                 </ol>
+            <v-col cols=2></v-col>
+            <v-col>
+                <v-row justify="center">
+                    <p class="body-1 font-weight-light">
+                        Create a new account <br/>(username &amp; password)
+                    </p>
+                </v-row>
             </v-col>
+            <v-col>
+                <v-row justify="center">
+                    <p class="body-1 font-weight-light">
+                        Enable LoginShield
+                    </p>
+                </v-row>
+
+            </v-col>
+            <v-col>
+                <v-row justify="center">
+                    <p class="body-1 font-weight-light">
+                        Login with LoginShield
+                    </p>
+                </v-row>
+            </v-col>
+            <v-col cols=2></v-col>
         </v-row>
-        <v-divider class="mt-5"></v-divider>
-        <v-row justify="center" class="py-5 pb-10">
+        <v-row justify="center">
             <v-col style="text-align: center">
-                <v-btn tile elevation="12" class="blue white--text" to="/register">Create a new account</v-btn>
+                <v-btn tile elevation="12" class="green white--text" to="/register">Create a new account</v-btn>
             </v-col>
         </v-row>
     </v-container>

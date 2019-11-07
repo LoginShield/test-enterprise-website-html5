@@ -20,7 +20,7 @@
                     ></v-text-field>
                     <v-card-actions>
                         <v-row justify="center">
-                            <v-btn tile elevation="6" class="blue white--text" @click="login" :disabled="!loginForm">
+                            <v-btn tile elevation="6" class="green white--text" @click="login" :disabled="!loginForm">
                                 <font-awesome-icon icon="check" fixed-width/>&nbsp;Login
                             </v-btn>
                         </v-row>
