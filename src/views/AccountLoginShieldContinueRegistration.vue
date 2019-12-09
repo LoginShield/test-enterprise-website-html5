@@ -8,20 +8,20 @@
                 <v-card tile elevation="6" class="px-10 pb-5">
                     <v-card-text class="title text-center">Security</v-card-text>
                     <v-divider class="mx-5 mb-5"></v-divider>
-                    <v-row justify="center" class="pt-5 px-5">
-                        <p>Now login once with LoginShield to complete the registration process:</p>
+                    <v-row justify="center" class="pt-4 px-3">
+                        <p class="text-center subtitle">Now login once with LoginShield to complete the registration process:</p>
                     </v-row>
-                    <v-row justify="center" class="pt-5 px-5">
-                        <p class="font-weight-light text-center">
+                    <v-row justify="center" class="pt-4">
+                        <p class="body-1 font-weight-light text-center">
                             Username: {{account.username}}
                         </p>
                     </v-row>
-                    <v-row justify="center" class="pt-5 px-5">
-                        <p class="font-weight-light text-center">
+                    <v-row justify="center">
+                        <p class="body-1 font-weight-light text-center">
                             Email: {{account.email}}
                         </p>
                     </v-row>
-                    <v-row justify="center" class="pt-5 px-5">
+                    <v-row justify="center" class="pt-2">
                         <v-btn tile elevation="6" class="blue white--text" @click="login">
                             Login
                         </v-btn>
