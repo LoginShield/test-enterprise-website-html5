@@ -13,7 +13,7 @@
                             Username: {{account.username}}
                         </p>
                     </v-row>
-                    <v-row justify="center" class="pt-5 px-5">
+                    <v-row justify="center" class="px-5">
                         <p class="font-weight-light text-center">
                             Email: {{account.email}}
                         </p>

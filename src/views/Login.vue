@@ -5,48 +5,60 @@
         </v-row>
         <v-row justify="center" class="py-5">
             <v-col cols="12" sm="10" md="8" lg="6" xl="4">
-                <v-card tile elevation="6" class="px-10 pb-5 pt-10" v-if="loginUsernameInput">
-                    <v-form v-model="loginUsernameForm">
-                    <v-text-field
-                        v-model=username
-                        label="Username"
-                        :rules="usernameRules"
-                    ></v-text-field>
-                    <v-card-actions>
-                        <v-row justify="center">
-                            <v-btn tile elevation="6" class="blue white--text" @click="loginUsername" :disabled="!loginUsernameForm">
-                                <font-awesome-icon icon="check" fixed-width/>&nbsp;Next
-                            </v-btn>
-                        </v-row>
-                    </v-card-actions>
+                <v-card tile elevation="6" class="px-10 pb-5 pt-10" v-show="loginUsernameInput">
+                    <v-form v-model="loginUsernameForm" @submit="loginUsername" onSubmit="return false;">
+                        <v-text-field
+                            v-model=username
+                            label="Username"
+                            :rules="usernameRules"
+                            autofocus
+                            v-on:keyup.enter="loginUsername"
+                        ></v-text-field>
+                        <v-card-actions>
+                            <v-row justify="center">
+                                <v-btn tile elevation="6" class="blue white--text" @click="loginUsername" :disabled="!loginUsernameForm">
+                                    <font-awesome-icon icon="check" fixed-width/>&nbsp;Next
+                                </v-btn>
+                            </v-row>
+                        </v-card-actions>
                     </v-form>
                 </v-card>
-                <v-card tile elevation="6" class="px-10 pb-5 pt-10" v-if="loginPasswordInput">
-                    <v-form v-model="loginPasswordForm">
-                    <v-text-field
-                        v-model=password
-                        label="Password"
-                        :rules="passwordRules"
-                        type="password"
-                    ></v-text-field>
-                    <v-card-actions>
-                        <v-row justify="center">
-                            <v-btn tile elevation="6" class="blue white--text" @click="loginPassword" :disabled="!loginPasswordForm">
-                                <font-awesome-icon icon="check" fixed-width/>&nbsp;Login
-                            </v-btn>
-                        </v-row>
-                    </v-card-actions>
+                <v-card tile elevation="6" class="px-10 pb-5 pt-10" v-show="loginPasswordInput">
+                    <v-form v-model="loginPasswordForm" @submit="loginPassword" onSubmit="return false;">
+                        <v-text-field
+                            v-model=password
+                            label="Password"
+                            :rules="passwordRules"
+                            type="password"
+                            ref="passwordField"
+                            v-on:keyup.enter="loginPassword"
+                        ></v-text-field>
+                        <v-card-actions>
+                            <v-row justify="center">
+                                <v-btn tile elevation="6" class="blue white--text" @click="loginPassword" :disabled="!loginPasswordForm">
+                                    <font-awesome-icon icon="check" fixed-width/>&nbsp;Login
+                                </v-btn>
+                            </v-row>
+                        </v-card-actions>
                     </v-form>
                 </v-card>
-                <v-card tile elevation="6" class="px-10 pb-5 pt-10" v-show="loginWithLoginShield">
+                <v-card tile elevation="6" class="pa-5" v-show="loginWithLoginShield">
                     <!-- TODO: the qr code or push notification UI goes here -->
-                    <h1>Login with LoginShield</h1>
-                    <div id="loginshield-content"></div>
+                    <v-row justify="center">
+                        <p class="headline blue--text">Login with LoginShield</p>
+                    </v-row>
+                    <v-divider class="pb-5 px-5"></v-divider>
+                    <v-row justify="center">
+                        <div id="loginshield-content"></div>
+                    </v-row>
                 </v-card>
             </v-col>
         </v-row>
-        <v-row justify="center" class="py-5" v-if="error">
-            <p class="body-1 font-weight-light">Incorrect username or password</p>
+        <v-row justify="center" class="py-5" v-if="passwordError">
+            <p class="body-1 font-weight-light red--text">Incorrect username or password</p>
+        </v-row>
+        <v-row justify="center" class="py-5" v-if="loginshieldStartError">
+            <p class="body-1 font-weight-light red--text">Login failed</p>
         </v-row>
 
     </v-container>
@@ -75,7 +87,8 @@ export default {
                 v => !!v || 'Password is required',
                 v => !v || isValidName(compact(v)) || 'Password is required',
             ],
-            error: false,
+            passwordError: false,
+            loginshieldStartError: false,
         };
     },
 
@@ -123,24 +136,29 @@ export default {
                 }
             }
         },
+        resetErrors() {
+            this.passwordError = false;
+            this.loginshieldStartError = false;
+        },
         async loginUsername() {
-            this.error = false;
+            this.passwordError = false;
             const { mechanism } = await this.$store.dispatch('login', {
                 username: this.username,
             });
             if (mechanism === 'password') {
                 this.loginUsernameInput = false;
                 this.loginPasswordInput = true;
+                this.$refs.passwordField.focus();
             } else if (mechanism === 'loginshield') {
                 this.loginUsernameInput = false;
                 this.loginWithLoginShield = true;
                 this.startLoginShield({ username: this.username });
             } else {
-                this.error = true;
+                this.passwordError = true;
             }
         },
         async loginPassword() {
-            this.error = false;
+            this.passwordError = false;
             const { isAuthenticated, error } = await this.$store.dispatch('loginWithPassword', {
                 username: this.username,
                 password: this.password,
@@ -151,12 +169,11 @@ export default {
                 if (error) {
                     console.error(`loginPassword error: ${error}`);
                 }
-                this.error = true;
+                this.passwordError = true;
             }
         },
         async startLoginShield({ mode, username }) {
-            this.error = false;
-
+            this.resetErrors();
             const { error, forward } = await this.$store.dispatch('loginWithLoginShield', {
                 username,
                 mode,
@@ -173,7 +190,7 @@ export default {
                     }),
                     onError: ((err) => {
                         console.log('startLoginShield: login failed, error: %o', err);
-                        this.error = true;
+                        this.loginshieldStartError = true;
                     }),
                 });
             } else {
@@ -182,13 +199,13 @@ export default {
                 if (error) {
                     console.error(`startLoginShield error: ${error}`);
                 }
-                this.error = true;
+                this.loginshieldStartError = true;
                 this.loginUsernameInput = true;
                 this.loginWithLoginShield = false;
             }
         },
         async resumeLoginShield({ /* mode, */ resume }) {
-            this.error = false;
+            this.resetErrors();
             loginshieldInit({
                 elementId: 'loginshield-content',
                 backgroundColor: '#ffffff',
@@ -198,7 +215,7 @@ export default {
                 }),
                 onError: ((err) => {
                     console.log('resumeLoginShield: login failed, error: %o', err);
-                    this.error = true;
+                    this.loginshieldStartError = true;
                 }),
             });
         },
@@ -212,7 +229,7 @@ export default {
                 this.$router.push('/account');
             } else if (error) {
                 console.error(`finishLoginShield error: ${error}`);
-                this.error = true;
+                this.loginshieldStartError = true;
             } else {
                 // TODO: show a loginshield specific error and then try loginshield login again,
                 // because this situation could happen when a phishing attack is circumvented,
