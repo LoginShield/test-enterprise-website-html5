@@ -157,7 +157,7 @@ export default {
         async startLoginShield({ mode, username }) {
             this.error = false;
 
-            const { /* draft 1: challenge, */ error, forward } = await this.$store.dispatch('loginWithLoginShield', {
+            const { error, forward } = await this.$store.dispatch('loginWithLoginShield', {
                 username,
                 mode,
             });
@@ -166,13 +166,10 @@ export default {
                 // this works, it's the redirect method: window.location = forward;
                 loginshieldInit({
                     elementId: 'loginshield-content',
+                    backgroundColor: '#ffffff',
                     forward,
                     onLogin: ((verifyInfo) => {
                         this.finishLoginShield(verifyInfo);
-                        /* draft 1:
-                        console.log(`login.vue: login successful, forward url: ${redirect}`);
-                        window.location = redirect; // the redirect url provided by the enterprise service to loginshield, plus the loginshield token in the query parameters
-                        */
                     }),
                     onError: ((err) => {
                         console.log('startLoginShield: login failed, error: %o', err);
@@ -189,26 +186,12 @@ export default {
                 this.loginUsernameInput = true;
                 this.loginWithLoginShield = false;
             }
-            /* draft 1:
-            else if (challenge) {
-                loginshieldInit({
-                    elementId: 'loginshield-content',
-                    challenge,
-                    onLogin: ((redirect) => {
-                        console.log(`login.vue: login successful, forward url: ${redirect}`);
-                        // TODO: window.location = redirect;  ... what is the forward url ?  is it to loginshield.com or to the enterprise domain ????
-                    }),
-                    onError: ((err) => {
-                        console.log('login.vue: login failed, error: %o', err);
-                        this.error = true;
-                    }),
-                });
-            } */
         },
         async resumeLoginShield({ /* mode, */ resume }) {
             this.error = false;
             loginshieldInit({
                 elementId: 'loginshield-content',
+                backgroundColor: '#ffffff',
                 resume,
                 onLogin: ((verifyInfo) => {
                     this.finishLoginShield(verifyInfo);
