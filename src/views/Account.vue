@@ -106,7 +106,9 @@ export default {
 
     methods: {
         init() {
-            if (!this.isAuthenticated) {
+            if (this.isAuthenticated) {
+                this.editableLoginShieldIsEnabled = this.loginshield.isEnabled;
+            } else {
                 this.$router.push('/login');
             }
         },
@@ -114,7 +116,7 @@ export default {
             this.isRegistrationError = false;
             const response = await this.$store.dispatch('editAccount', { action: 'register-loginshield-user' });
             if (response.forward) {
-                // redirect user to loginshield.com for registration
+                // redirect user to loginshield.com for registration (or to /account/loginshield/continue-registration if user already did the loginshield part but hasn't completed the first login here)
                 window.location = response.forward;
             }
             if (response.error) {

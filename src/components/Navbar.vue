@@ -94,7 +94,9 @@ export default {
         async logout() {
             console.log('logout: redirecting to front page');
             await this.$store.dispatch('logout');
-            this.$router.push('/');
+            if (this.$route.name !== 'front') {
+                this.$router.push('/');
+            }
         },
     },
 

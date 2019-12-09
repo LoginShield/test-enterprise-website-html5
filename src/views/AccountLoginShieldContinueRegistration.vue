@@ -73,7 +73,11 @@ export default {
             }
         },
         login() {
-            // TODO: need to do a login
+            // TODO: login with special flag to indicate we're allowing a public key reset ...
+            //       also that flag means we're doing a loginshield login even if the account
+            //       doesn't yet have loginshield activated
+            //       (because this login will cause it to be activated when successfully completed)
+            this.$router.push({ path: '/login', query: { mode: 'activate-loginshield' } });
         },
     },
 

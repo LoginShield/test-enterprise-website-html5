@@ -12,7 +12,7 @@ export default new Vuex.Store({
         isReady: false, // indicates that we loaded session info from server, so we know if user is authenticated; and if user is authenticated, that we've also loaded user info and account info from server
         serviceContext: {}, // stripeTokenPublicKey
         serviceVersion: {}, // version
-        session: { isAuthenticated: false, username: null, email: null },
+        session: { isAuthenticated: false },
         account: { username: null, email: null, loginshield: { isRegistered: false, isEnabled: false } },
         loadingMap: { loadSession: true },
     },
@@ -46,16 +46,43 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        async login({ commit, dispatch, state }, { username, password }) {
+        async login({ commit, dispatch, state }, { username }) {
             commit('loading', { login: true });
-            const { isAuthenticated } = await client.session.login({ username, password });
+            const { isAuthenticated, mechanism } = await client.session.login({ username });
             // https://vuex.vuejs.org/guide/mutations.html#mutations-follow-vue-s-reactivity-rules
             commit('setSession', { ...state.session, isAuthenticated });
             if (isAuthenticated) {
                 await dispatch('loadAccount');
             }
             commit('loading', { login: false });
-            return { isAuthenticated };
+            return { isAuthenticated, mechanism };
+        },
+        async loginWithPassword({ commit, dispatch, state }, { username, password }) {
+            commit('loading', { loginWithPassword: true });
+            const { isAuthenticated, error } = await client.session.loginWithPassword({ username, password });
+            // https://vuex.vuejs.org/guide/mutations.html#mutations-follow-vue-s-reactivity-rules
+            commit('setSession', { ...state.session, isAuthenticated });
+            if (isAuthenticated) {
+                await dispatch('loadAccount');
+            }
+            commit('loading', { loginWithPassword: false });
+            return { isAuthenticated, error };
+        },
+        async loginWithLoginShield({ commit, dispatch, state }, { username, mode, verifyToken }) {
+            commit('loading', { loginWithLoginShield: true });
+            // NOTE: username and mode are used to initiate a login; token is used to finish a login request
+            const {
+                isAuthenticated, challenge /* draft 1 */, error, forward /* draft 2 */,
+            } = await client.session.loginWithLoginShield({ username, mode, verifyToken });
+            // https://vuex.vuejs.org/guide/mutations.html#mutations-follow-vue-s-reactivity-rules
+            commit('setSession', { ...state.session, isAuthenticated });
+            if (isAuthenticated) {
+                await dispatch('loadAccount');
+            }
+            commit('loading', { loginWithLoginShield: false });
+            return {
+                isAuthenticated, challenge, error, forward,
+            };
         },
         async logout({ commit, state }) {
             commit('loading', { logout: true });
