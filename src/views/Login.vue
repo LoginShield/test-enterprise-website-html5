@@ -13,7 +13,14 @@
                             :rules="usernameRules"
                             autofocus
                             v-on:keyup.enter="loginUsername"
+                            ref="usernameField"
                         ></v-text-field>
+                        <v-row justify="center" v-if="passwordError">
+                            <p class="body-1 font-weight-light red--text">Incorrect username or password</p>
+                        </v-row>
+                        <v-row justify="center" v-if="loginshieldStartError">
+                            <p class="body-1 font-weight-light red--text">Login failed</p>
+                        </v-row>
                         <v-card-actions>
                             <v-row justify="center">
                                 <v-btn tile elevation="6" class="blue white--text" @click="loginUsername" :disabled="!loginUsernameForm">
@@ -54,13 +61,6 @@
                 </v-card>
             </v-col>
         </v-row>
-        <v-row justify="center" class="py-5" v-if="passwordError">
-            <p class="body-1 font-weight-light red--text">Incorrect username or password</p>
-        </v-row>
-        <v-row justify="center" class="py-5" v-if="loginshieldStartError">
-            <p class="body-1 font-weight-light red--text">Login failed</p>
-        </v-row>
-
     </v-container>
 </template>
 
@@ -170,6 +170,11 @@ export default {
                     console.error(`loginPassword error: ${error}`);
                 }
                 this.passwordError = true;
+                this.loginUsernameInput = true;
+                this.loginPasswordInput = false;
+                this.password = '';
+                this.$refs.passwordField.reset();
+                this.$refs.usernameField.focus();
             }
         },
         async startLoginShield({ mode, username }) {
@@ -191,6 +196,9 @@ export default {
                     onError: ((err) => {
                         console.log('startLoginShield: login failed, error: %o', err);
                         this.loginshieldStartError = true;
+                        this.loginWithLoginShield = false;
+                        this.loginPasswordInput = false;
+                        this.loginUsernameInput = true;
                     }),
                 });
             } else {
@@ -202,6 +210,8 @@ export default {
                 this.loginshieldStartError = true;
                 this.loginUsernameInput = true;
                 this.loginWithLoginShield = false;
+                this.loginPasswordInput = false;
+                this.loginUsernameInput = true;
             }
         },
         async resumeLoginShield({ /* mode, */ resume }) {
