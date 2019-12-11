@@ -138,6 +138,16 @@ export default {
             this.passwordError = false;
             this.loginshieldStartError = false;
         },
+        resetLoginForm() {
+            this.loginWithLoginShield = false;
+            this.loginPasswordInput = false;
+            this.loginUsernameInput = true;
+            this.username = '';
+            this.password = '';
+            this.$refs.usernameField.focus();
+            this.$refs.usernameField.reset();
+            this.$refs.passwordField.reset();
+        },
         async loginUsername() {
             this.passwordError = false;
             const { mechanism } = await this.$store.dispatch('login', {
@@ -153,6 +163,7 @@ export default {
                 this.startLoginShield({ username: this.username });
             } else {
                 this.passwordError = true;
+                this.resetLoginForm();
             }
         },
         async loginPassword() {
@@ -168,11 +179,7 @@ export default {
                     console.error(`loginPassword error: ${error}`);
                 }
                 this.passwordError = true;
-                this.loginUsernameInput = true;
-                this.loginPasswordInput = false;
-                this.password = '';
-                this.$refs.passwordField.reset();
-                this.$refs.usernameField.focus();
+                this.resetLoginForm();
             }
         },
         async startLoginShield({ mode, username }) {
@@ -194,9 +201,7 @@ export default {
                     onError: ((err) => {
                         console.log('startLoginShield: login failed, error: %o', err);
                         this.loginshieldStartError = true;
-                        this.loginWithLoginShield = false;
-                        this.loginPasswordInput = false;
-                        this.loginUsernameInput = true;
+                        this.resetLoginForm();
                     }),
                 });
             } else {
@@ -206,10 +211,7 @@ export default {
                     console.error(`startLoginShield error: ${error}`);
                 }
                 this.loginshieldStartError = true;
-                this.loginUsernameInput = true;
-                this.loginWithLoginShield = false;
-                this.loginPasswordInput = false;
-                this.loginUsernameInput = true;
+                this.resetLoginForm();
             }
         },
         async resumeLoginShield({ /* mode, */ resume }) {
@@ -224,6 +226,7 @@ export default {
                 onError: ((err) => {
                     console.log('resumeLoginShield: login failed, error: %o', err);
                     this.loginshieldStartError = true;
+                    this.resetLoginForm();
                 }),
             });
         },
@@ -238,6 +241,7 @@ export default {
             } else if (error) {
                 console.error(`finishLoginShield error: ${error}`);
                 this.loginshieldStartError = true;
+                this.resetLoginForm();
             } else {
                 // TODO: show a loginshield specific error and then try loginshield login again,
                 // because this situation could happen when a phishing attack is circumvented,
