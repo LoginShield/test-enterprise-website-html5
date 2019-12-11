@@ -60,8 +60,8 @@ class Session {
 
 
 class Account {
-    async register(request) {
-        return postJsonAcceptJson('/service/account/register', request);
+    async create(request) {
+        return postJsonAcceptJson('/service/account/create', request);
     }
 
     async get() {

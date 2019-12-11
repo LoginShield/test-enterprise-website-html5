@@ -40,9 +40,9 @@ export default new Router({
         },
         */
         {
-            path: '/register',
-            name: 'register',
-            component: () => import(/* webpackChunkName: "register" */ './views/Register.vue'),
+            path: '/create',
+            name: 'create',
+            component: () => import(/* webpackChunkName: "create" */ './views/Create.vue'),
         },
         // #if !production
         {

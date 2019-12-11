@@ -6,7 +6,7 @@
         <v-row justify="center" class="py-5">
             <v-col cols="12" sm="10" md="8" lg="6" xl="4">
                 <v-card tile elevation="6" class="px-10 py-5">
-                    <v-form v-model="registrationForm" ref="registerFormRef" @submit="validateRegistration" onSubmit="return false;" @keyup.enter.native="validateRegistration">
+                    <v-form v-model="createAccountForm" ref="createAccountFormRef" @submit="validateCreateAccount" onSubmit="return false;" @keyup.enter.native="validateCreateAccount">
                         <v-text-field
                             v-model=username
                             label="Username"
@@ -25,12 +25,12 @@
                             type="password"
                         ></v-text-field>
                         <v-row justify="center" v-if="error">
-                            <p class="body-1 font-weight-light red--text">Registration failed</p>
+                            <p class="body-1 font-weight-light red--text">Account creation failed</p>
                         </v-row>
                         <v-row justify="center">
                             <v-card-actions>
-                                <v-btn tile elevation="6" class="green white--text" @click="register" :disabled="!registrationForm">
-                                    <font-awesome-icon icon="check" fixed-width/>&nbsp;Register
+                                <v-btn tile elevation="6" class="green white--text" @click="createAccount" :disabled="!createAccountForm">
+                                    <font-awesome-icon icon="check" fixed-width/>&nbsp;Create
                                 </v-btn>
                             </v-card-actions>
                         </v-row>
@@ -48,7 +48,7 @@ import { isValidName, isValidEmail, compact } from '@/sdk/input';
 export default {
     data() {
         return {
-            registrationForm: null,
+            createAccountForm: null,
             username: null,
             password: null,
             email: null,
@@ -91,25 +91,25 @@ export default {
                 this.$router.push('/account');
             }
         },
-        async register() {
+        async createAccount() {
             this.error = false;
-            console.log('register');
+            console.log('createAccount');
             const request = {
                 username: this.username,
                 email: this.email,
                 password: this.password,
             };
             const response = await this.$store.dispatch('createAccount', request);
-            console.log('register response: %o', response);
+            console.log('createAccount response: %o', response);
             if (response.isCreated) {
                 this.$router.push('/account');
             } else {
                 this.error = true;
             }
         },
-        validateRegistration() {
-            if (this.$refs.registerFormRef.validate()) {
-                this.register();
+        validateCreateAccount() {
+            if (this.$refs.createAccountFormRef.validate()) {
+                this.createAccount();
             }
         },
     },

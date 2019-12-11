@@ -2,20 +2,26 @@
     <v-container class="py-10 px-2">
         <v-row justify="center"  class="py-5">
             <v-col style="text-align: center">
-                 <h1 class="display-1 font-weight-light">Try LoginShield</h1>
+                <v-row justify="center" class="pt-3">
+                    <h1 class="overline font-weight-light" style="font-size: 34px!important;">Try the demo</h1>
+                </v-row>
             </v-col>
         </v-row>
         <v-row justify="center" class="py-5 pb-10">
             <v-col cols=2></v-col>
             <v-col>
                 <v-row justify="center">
-                    <p class="body-1 font-weight-light">
-                        Create a new account <br/>(username &amp; password)
-                    </p>
+                    <p class="display-2">1</p>
+                </v-row>
+                <v-row justify="center" class="pt-3">
+                    <p class="body-1 font-weight-light">Create a new account</p>
                 </v-row>
             </v-col>
             <v-col>
                 <v-row justify="center">
+                    <p class="display-2">2</p>
+                </v-row>
+                <v-row justify="center" class="pt-3">
                     <p class="body-1 font-weight-light">
                         Enable LoginShield
                     </p>
@@ -24,6 +30,9 @@
             </v-col>
             <v-col>
                 <v-row justify="center">
+                    <p class="display-2">3</p>
+                </v-row>
+                <v-row justify="center" class="pt-3">
                     <p class="body-1 font-weight-light">
                         Login with LoginShield
                     </p>
@@ -33,7 +42,7 @@
         </v-row>
         <v-row justify="center">
             <v-col style="text-align: center">
-                <v-btn tile elevation="12" class="green white--text" to="/register">Create a new account</v-btn>
+                <v-btn tile elevation="24" class="green white--text" to="/create">Create account</v-btn>
             </v-col>
         </v-row>
     </v-container>

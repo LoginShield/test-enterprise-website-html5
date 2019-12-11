@@ -1,5 +1,9 @@
 <template>
     <v-container class="py-10 px-2">
+        <v-snackbar v-model="snackbarLoginshieldEnabled" :timeout="4000" top :color="loginshieldSnackbarColor" class="mt-0 pt-0">
+            <span>{{ loginshieldSnackbarText }}</span>
+            <v-btn text :class="loginshieldSnackbarClass" @click="snackbarLoginshieldEnabled = false"><font-awesome-icon icon="check" fixed-width/></v-btn>
+        </v-snackbar>
         <v-row justify="center" class="py-5">
             <h1 class="display-1 font-weight-light">Account</h1>
         </v-row>
@@ -36,8 +40,8 @@
                     </v-row>
                     <v-row justify="center" class="px-5 pb-3" v-if="account.loginshield.isRegistered">
                         <v-switch
-                            v-model="editableLoginShieldIsEnabled"
-                            color="green"
+                            v-model="isLoginshieldEnabled"
+                            color="blue"
                             hide-details
                         >
                         <template v-slot:label>
@@ -60,8 +64,11 @@ import { mapState, mapGetters } from 'vuex';
 export default {
     data() {
         return {
-            editableLoginShieldIsEnabled: null,
             isRegistrationError: false,
+            snackbarLoginshieldEnabled: false,
+            loginshieldSnackbarText: '',
+            loginshieldSnackbarClass: '',
+            loginshieldSnackbarColor: '',
         };
     },
 
@@ -79,6 +86,32 @@ export default {
                 return this.account.loginshield;
             }
             return { isRegistered: false, isEnabled: false };
+        },
+        isLoginshieldEnabled: {
+            get() {
+                if (this.account) {
+                    return this.account.loginshield.isEnabled;
+                }
+                return false;
+            },
+            async set(value) {
+                const { isEdited } = await this.$store.dispatch('editAccount', { loginshield: { isEnabled: value } });
+                if (isEdited) {
+                    if (value) {
+                        this.snackbarLoginshieldEnabled = true;
+                        this.loginshieldSnackbarText = 'LoginShield Enabled';
+                        this.loginshieldSnackbarClass = 'blue white--text';
+                        this.loginshieldSnackbarColor = 'blue';
+                    } else {
+                        this.snackbarLoginshieldEnabled = true;
+                        this.loginshieldSnackbarText = 'LoginShield Disabled';
+                        this.loginshieldSnackbarClass = 'red white--text';
+                        this.loginshieldSnackbarColor = 'red';
+                    }
+                } else {
+                    console.log('Error editing account');
+                }
+            },
         },
         /*
         loginshieldSwitch: {
@@ -107,7 +140,7 @@ export default {
     methods: {
         init() {
             if (this.isAuthenticated) {
-                this.editableLoginShieldIsEnabled = this.loginshield.isEnabled;
+                // this.isLoginshieldEnabled = this.loginshield.isEnabled;
             } else {
                 this.$router.push('/login');
             }
