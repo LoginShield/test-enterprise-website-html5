@@ -45,6 +45,14 @@ class Session {
         return postJsonAcceptJson('/service/session/login', request);
     }
 
+    async loginWithPassword(request) {
+        return postJsonAcceptJson('/service/session/login/password', request);
+    }
+
+    async loginWithLoginShield(request) {
+        return postJsonAcceptJson('/service/session/login/loginshield', request);
+    }
+
     async logout(request = {}) {
         return postJsonAcceptJson('/service/session/logout', request);
     }

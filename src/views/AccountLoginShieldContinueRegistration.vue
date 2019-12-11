@@ -8,20 +8,20 @@
                 <v-card tile elevation="6" class="px-10 pb-5">
                     <v-card-text class="title text-center">Security</v-card-text>
                     <v-divider class="mx-5 mb-5"></v-divider>
-                    <v-row justify="center" class="pt-5 px-5">
-                        <p>Now login once with LoginShield to complete the registration process:</p>
+                    <v-row justify="center" class="pt-4 px-3">
+                        <p class="text-center subtitle">Now login once with LoginShield to complete the registration process:</p>
                     </v-row>
-                    <v-row justify="center" class="pt-5 px-5">
-                        <p class="font-weight-light text-center">
+                    <v-row justify="center" class="pt-4">
+                        <p class="body-1 font-weight-light text-center">
                             Username: {{account.username}}
                         </p>
                     </v-row>
-                    <v-row justify="center" class="pt-5 px-5">
-                        <p class="font-weight-light text-center">
+                    <v-row justify="center">
+                        <p class="body-1 font-weight-light text-center">
                             Email: {{account.email}}
                         </p>
                     </v-row>
-                    <v-row justify="center" class="pt-5 px-5">
+                    <v-row justify="center" class="pt-2">
                         <v-btn tile elevation="6" class="green white--text" @click="login">
                             Login
                         </v-btn>
@@ -73,7 +73,11 @@ export default {
             }
         },
         login() {
-            // TODO: need to do a login
+            // TODO: login with special flag to indicate we're allowing a public key reset ...
+            //       also that flag means we're doing a loginshield login even if the account
+            //       doesn't yet have loginshield activated
+            //       (because this login will cause it to be activated when successfully completed)
+            this.$router.push({ path: '/login', query: { mode: 'activate-loginshield' } });
         },
     },
 
