@@ -6,7 +6,7 @@
         <v-row justify="center" class="py-5">
             <v-col cols="12" sm="10" md="8" lg="6" xl="4">
                 <v-card tile elevation="6" class="px-10 pb-5 pt-10" v-show="loginUsernameInput">
-                    <v-form v-model="loginUsernameForm" @submit="loginUsername" onSubmit="return false;">
+                    <v-form v-model="loginUsernameForm" ref="loginUsernameFormRef" @submit="validateUsername" onSubmit="return false;">
                         <v-text-field
                             v-model=username
                             label="Username"
@@ -30,7 +30,7 @@
                     </v-form>
                 </v-card>
                 <v-card tile elevation="6" class="px-10 pb-5 pt-10" v-show="loginPasswordInput">
-                    <v-form v-model="loginPasswordForm" @submit="loginPassword" onSubmit="return false;">
+                    <v-form v-model="loginPasswordForm" ref="loginPasswordFormRef" @submit="validatePassword" onSubmit="return false;">
                         <v-text-field
                             v-model=password
                             label="Password"
@@ -134,6 +134,16 @@ export default {
                 }
             }
         },
+        validateUsername() {
+            if (this.$refs.loginUsernameFormRef.validate()) {
+                this.loginUsername();
+            }
+        },
+        validatePassword() {
+            if (this.$refs.loginPasswordFormRef.validate()) {
+                this.loginPassword();
+            }
+        },
         resetErrors() {
             this.passwordError = false;
             this.loginshieldStartError = false;
@@ -144,7 +154,7 @@ export default {
             this.loginUsernameInput = true;
             this.username = '';
             this.password = '';
-            this.$refs.usernameField.focus();
+            this.$nextTick(() => this.$refs.usernameField.focus());
             this.$refs.usernameField.reset();
             this.$refs.passwordField.reset();
         },
@@ -156,7 +166,7 @@ export default {
             if (mechanism === 'password') {
                 this.loginUsernameInput = false;
                 this.loginPasswordInput = true;
-                this.$refs.passwordField.focus();
+                this.$nextTick(() => this.$refs.passwordField.focus());
             } else if (mechanism === 'loginshield') {
                 this.loginUsernameInput = false;
                 this.loginWithLoginShield = true;

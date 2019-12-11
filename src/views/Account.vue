@@ -25,7 +25,7 @@
             <v-col cols="12" sm="10" md="8" lg="6" xl="4">
                 <v-card tile elevation="6" class="px-5 pb-3">
                     <v-card-text class="title text-center">Security</v-card-text>
-                    <v-divider class="mx-5 mb-5"></v-divider>
+                    <v-divider class="mx-5 mb-2"></v-divider>
                     <v-row justify="center" class="pt-5 px-5" v-if="!account.loginshield.isRegistered">
                         <p>Click the button to setup LoginShield for this account:</p>
                     </v-row>
@@ -34,7 +34,7 @@
                             <font-awesome-icon icon="check" fixed-width/>&nbsp;Register
                         </v-btn>
                     </v-row>
-                    <v-row justify="center" class="pt-5 px-5" v-if="account.loginshield.isRegistered">
+                    <v-row justify="center" class="px-5 pb-3" v-if="account.loginshield.isRegistered">
                         <v-switch
                             v-model="editableLoginShieldIsEnabled"
                             color="blue"
@@ -45,7 +45,7 @@
                         </template>
                         </v-switch>
                     </v-row>
-                    <v-row justify="center" class="pt-5 px-5" v-if="isRegistrationError">
+                    <v-row justify="center" class="pt-3 px-5 pb-3" v-if="isRegistrationError">
                         <p>Registration error</p>
                     </v-row>
                 </v-card>
