@@ -12,7 +12,6 @@
                             label="Username"
                             :rules="usernameRules"
                             autofocus
-                            v-on:keyup.enter="loginUsername"
                             ref="usernameField"
                         ></v-text-field>
                         <v-row justify="center" v-if="passwordError">
@@ -38,7 +37,6 @@
                             :rules="passwordRules"
                             type="password"
                             ref="passwordField"
-                            v-on:keyup.enter="loginPassword"
                         ></v-text-field>
                         <v-card-actions>
                             <v-row justify="center">
