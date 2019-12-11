@@ -22,7 +22,7 @@
                         </v-row>
                         <v-card-actions>
                             <v-row justify="center">
-                                <v-btn tile elevation="6" class="blue white--text" @click="loginUsername" :disabled="!loginUsernameForm">
+                                <v-btn tile elevation="6" class="green white--text" @click="loginUsername" :disabled="!loginUsernameForm">
                                     <font-awesome-icon icon="check" fixed-width/>&nbsp;Next
                                 </v-btn>
                             </v-row>
@@ -40,7 +40,7 @@
                         ></v-text-field>
                         <v-card-actions>
                             <v-row justify="center">
-                                <v-btn tile elevation="6" class="blue white--text" @click="loginPassword" :disabled="!loginPasswordForm">
+                                <v-btn tile elevation="6" class="green white--text" @click="loginPassword" :disabled="!loginPasswordForm">
                                     <font-awesome-icon icon="check" fixed-width/>&nbsp;Login
                                 </v-btn>
                             </v-row>
