@@ -9,7 +9,7 @@ import {
     faPencilAlt, faSearch, faEdit, faInfoCircle,
     faCloudDownloadAlt, faUnlock,
     faAngleRight, faAngleLeft, faAngleDoubleRight, faAngleDoubleLeft,
-    faMinusSquare, faPaperclip,
+    faMinusSquare, faPaperclip, faExclamationTriangle,
 } from '@fortawesome/free-solid-svg-icons';
 import {
     faSquare,
@@ -35,7 +35,7 @@ library.add(faUser, faEnvelope, faPhone, faCheck, faFile, faCheckSquare, faSquar
     faPencilAlt, faSearch, faEdit, faInfoCircle,
     faCloudDownloadAlt, faUnlock,
     faAngleRight, faAngleLeft, faAngleDoubleRight, faAngleDoubleLeft,
-    faMinusSquare, faPaperclip);
+    faMinusSquare, faPaperclip, faExclamationTriangle);
 
 Vue.config.productionTip = false;
 
