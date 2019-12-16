@@ -117,7 +117,7 @@ export default {
                 console.log('login: resume loginshield authentication mode');
                 this.loginUsernameInput = false;
                 this.loginWithLoginShield = true;
-                this.resumeLoginShield({ resume: this.$route.query.loginshield });
+                this.resumeLoginShield({ forward: this.$route.query.loginshield });
                 return;
             }
             if (this.isAuthenticated) {
@@ -204,6 +204,7 @@ export default {
                 loginshieldInit({
                     elementId: 'loginshield-content',
                     backgroundColor: '#ffffff',
+                    action: 'start',
                     forward,
                     onLogin: ((verifyInfo) => {
                         this.finishLoginShield(verifyInfo);
@@ -224,12 +225,13 @@ export default {
                 this.resetLoginForm();
             }
         },
-        async resumeLoginShield({ /* mode, */ resume }) {
+        async resumeLoginShield({ forward }) {
             this.resetErrors();
             loginshieldInit({
                 elementId: 'loginshield-content',
                 backgroundColor: '#ffffff',
-                resume,
+                action: 'resume',
+                forward,
                 onLogin: ((verifyInfo) => {
                     this.finishLoginShield(verifyInfo);
                 }),
