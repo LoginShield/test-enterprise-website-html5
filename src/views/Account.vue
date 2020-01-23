@@ -31,9 +31,14 @@
 
                         <v-card-text class="title text-center">
                         <span>Security</span>
-                        <span class="pr-5" style="position: absolute; right: 0;">
-                            <font-awesome-icon icon="exclamation-triangle" class="orange--text" v-show="!isLoginshieldEnabled"/>
-                        </span>
+                        <v-tooltip top>
+                            <template v-slot:activator="{ on }">
+                                <span class="pr-5" style="position: absolute; right: 0;" v-on="on">
+                                    <font-awesome-icon icon="exclamation-triangle" class="orange--text" v-show="!isLoginshieldEnabled"/>
+                                </span>
+                            </template>
+                            <span>Your account is not currently protected by LoginShield</span>
+                        </v-tooltip>
                     </v-card-text>
 
 

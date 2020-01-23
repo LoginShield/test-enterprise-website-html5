@@ -72,7 +72,7 @@ export default new Vuex.Store({
             commit('loading', { loginWithLoginShield: true });
             // NOTE: username and mode are used to initiate a login; token is used to finish a login request
             const {
-                isAuthenticated, error, forward
+                isAuthenticated, error, forward,
             } = await client.session.loginWithLoginShield({ username, mode, verifyToken });
             // https://vuex.vuejs.org/guide/mutations.html#mutations-follow-vue-s-reactivity-rules
             commit('setSession', { ...state.session, isAuthenticated });
