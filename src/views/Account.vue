@@ -1,6 +1,6 @@
 <template>
     <v-container class="py-10 px-2">
-        <v-snackbar v-model="snackbarLoginshieldEnabled" :timeout="4000" top :color="loginshieldSnackbarColor" class="mt-0 pt-0">
+        <v-snackbar v-model="snackbarLoginshieldEnabled" :timeout="2000" top :color="loginshieldSnackbarColor" class="mt-0 pt-0">
             <span>{{ loginshieldSnackbarText }}</span>
             <v-btn text :class="loginshieldSnackbarClass" @click="snackbarLoginshieldEnabled = false"><font-awesome-icon icon="check" fixed-width/></v-btn>
         </v-snackbar>
