@@ -3,12 +3,12 @@
         <v-app-bar fixed fade-on-scroll elevation="4" height="48">
             <router-link to="/" style="text-decoration: none" v-if="!isAuthenticated">
                 <v-toolbar-title class="green--text overline" style="font-size: 16px!important;">
-                    LoginShield Enterprise Demo
+                    LoginShield Demo
                 </v-toolbar-title>
             </router-link>
             <router-link to="/account" style="text-decoration: none" v-if="isAuthenticated">
                 <v-toolbar-title class="green--text overline" style="font-size: 16px!important;">
-                    LoginShield Enterprise Demo
+                    LoginShield Demo
                 </v-toolbar-title>
             </router-link>
             <v-progress-linear
