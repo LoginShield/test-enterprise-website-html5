@@ -161,9 +161,17 @@ export default {
         async registerLoginShieldUser() {
             this.isRegistrationError = false;
             const response = await this.$store.dispatch('editAccount', { action: 'register-loginshield-user' });
+            /* start redirect method */
             if (response.forward) {
                 // redirect user to loginshield.com for registration (or to /account/loginshield/continue-registration if user already did the loginshield part but hasn't completed the first login here)
                 window.location = response.forward;
+                return;
+            }
+            /* end redirect method */
+            console.log('registerLoginShieldUser response from editAccount: %o', response);
+            if (response.isEdited) {
+                this.$router.push('/account/loginshield/continue-registration');
+                return;
             }
             if (response.error) {
                 this.isRegistrationError = true;
