@@ -47,16 +47,9 @@
                         </v-card-actions>
                     </v-form>
                 </v-card>
-                <v-card tile elevation="6" class="pa-5" v-show="loginWithLoginShield">
-                    <!-- TODO: the qr code or push notification UI goes here -->
-                    <v-row justify="center">
-                        <p class="headline blue--text">Login with LoginShield</p>
-                    </v-row>
-                    <v-divider class="pb-5 px-5"></v-divider>
-                    <v-row justify="center">
-                        <div id="loginshield-content"></div>
-                    </v-row>
-                </v-card>
+                <v-row justify="center" v-show="loginWithLoginShield">
+                    <div id="loginshield-content"></div>
+                </v-row>
             </v-col>
         </v-row>
     </v-container>
@@ -203,7 +196,9 @@ export default {
                 // this works, it's the redirect method: window.location = forward;
                 loginshieldInit({
                     elementId: 'loginshield-content',
-                    backgroundColor: '#ffffff',
+                    backgroundColor: '#E8F5E9',
+                    width: 300,
+                    height: 400,
                     action: 'start',
                     forward,
                     onLogin: ((verifyInfo) => {
@@ -229,7 +224,9 @@ export default {
             this.resetErrors();
             loginshieldInit({
                 elementId: 'loginshield-content',
-                backgroundColor: '#ffffff',
+                backgroundColor: '#E8F5E9',
+                width: 300,
+                height: 400,
                 action: 'resume',
                 forward,
                 onLogin: ((verifyInfo) => {
