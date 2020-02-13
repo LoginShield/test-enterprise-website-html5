@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <Navbar app/>
-        <v-content style="margin-top: 48px;" class="green lighten-5 py-10 px-5">
+        <v-content style="margin-top: 48px;" class="green lighten-5 py-10 px-3">
             <router-view></router-view>
         </v-content>
         <Footer/>

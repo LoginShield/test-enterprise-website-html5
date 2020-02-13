@@ -4,7 +4,7 @@
                 <h1 class="overline" style="font-size: 34px!important;">Test</h1>
         </v-row>
         <v-row justify="center" class="pb-10">
-            <v-col cols="12" sm="9" md="6" lg="4" xl="3">
+            <v-col cols="12" sm="9" md="6" lg="4" xl="3" class="pa-0">
                 <!-- Set these panels state as opened by default if possible (see value) -->
                 <v-expansion-panels accordion multiple v-model="isExpansionPanelOpen">
                     <v-expansion-panel style="border-radius: 0px;">
@@ -34,7 +34,7 @@
             </v-col>
         </v-row>
         <v-row justify="center">
-            <v-col cols="12">
+            <v-col cols="12" class="pa-0">
                 <v-expansion-panels accordion multiple>
                     <v-expansion-panel style="border-radius: 0px;">
                         <v-expansion-panel-header class="overline justify-center" style="font-size: 18px!important;">Vuex</v-expansion-panel-header>

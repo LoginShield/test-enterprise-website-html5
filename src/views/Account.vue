@@ -8,7 +8,7 @@
             <h1 class="display-1 font-weight-light">Account</h1>
         </v-row>
         <v-row justify="center" class="py-5">
-            <v-col cols="12" sm="10" md="8" lg="6" xl="4">
+            <v-col cols="12" sm="10" md="8" lg="6" xl="4" class="pa-0">
                 <v-card tile elevation="6" class="px-5 pb-3">
                     <v-card-text class="title text-center">Profile</v-card-text>
                     <v-divider class="mx-5 mb-5"></v-divider>
@@ -26,7 +26,7 @@
             </v-col>
         </v-row>
         <v-row justify="center" class="py-5">
-            <v-col cols="12" sm="10" md="8" lg="6" xl="4">
+            <v-col cols="12" sm="10" md="8" lg="6" xl="4" class="pa-0">
                 <v-card tile elevation="6" class="px-5 pb-3">
 
                         <v-card-text class="title text-center">

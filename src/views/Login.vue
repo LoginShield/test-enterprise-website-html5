@@ -1,11 +1,11 @@
 <template>
     <v-container>
-        <v-row justify="center" class="py-5">
+        <v-row justify="center">
             <h1 class="display-1 font-weight-light">Login</h1>
         </v-row>
         <v-row justify="center" class="py-5">
-            <v-col cols="12" sm="10" md="8" lg="6" xl="4">
-                <v-card tile elevation="6" class="px-10 pb-5 pt-10" v-show="loginUsernameInput">
+            <v-col cols="12" sm="10" md="8" lg="6" xl="4" class="pa-0">
+                <v-card tile elevation="6" class="px-10 py-5 mt-5" v-show="loginUsernameInput">
                     <v-form v-model="loginUsernameForm" ref="loginUsernameFormRef" @submit="validateUsername" onSubmit="return false;">
                         <v-text-field
                             v-model=username

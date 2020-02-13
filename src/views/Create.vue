@@ -4,7 +4,7 @@
             <h1 class="display-1 font-weight-light">Create new account</h1>
         </v-row>
         <v-row justify="center" class="py-5">
-            <v-col cols="12" sm="10" md="8" lg="6" xl="4">
+            <v-col cols="12" sm="10" md="8" lg="6" xl="4" class="pa-0">
                 <v-card tile elevation="6" class="px-10 py-5">
                     <v-form v-model="createAccountForm" ref="createAccountFormRef" @submit="validateCreateAccount" onSubmit="return false;" @keyup.enter.native="validateCreateAccount">
                         <v-text-field

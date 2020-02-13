@@ -4,11 +4,11 @@
             <h1 class="display-1 font-weight-light">Account</h1>
         </v-row>
         <v-row justify="center" class="py-5">
-            <v-col cols="12" sm="10" md="8" lg="6" xl="4">
-                <v-row justify="center" class="pt-5 px-5">
+            <v-col cols="12" sm="10" md="8" lg="6" xl="4" class="pa-0">
+                <v-row justify="center" class="pt-5 px-2">
                     <p class="title text-center">Validating login...</p>
                 </v-row>
-                <v-row justify="center" class="pt-5 px-5" v-show="error">
+                <v-row justify="center" class="pt-5 px-2" v-show="error">
                     <p class="title text-center">Login failed</p>
                     <a href="/login">Try again</a>
                 </v-row>
