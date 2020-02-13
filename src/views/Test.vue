@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pa-10">
+    <v-container>
         <v-row justify="center" class="pa-5 pb-10">
                 <h1 class="overline" style="font-size: 34px!important;">Test</h1>
         </v-row>

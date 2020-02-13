@@ -1,5 +1,5 @@
 <template>
-    <v-container class="py-10 px-2">
+    <v-container>
         <v-row justify="center" class="py-5">
             <h1 class="display-1 font-weight-light">Account</h1>
         </v-row>

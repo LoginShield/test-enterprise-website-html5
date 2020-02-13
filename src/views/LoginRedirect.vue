@@ -1,5 +1,5 @@
 <template>
-    <v-container class="py-10 px-2">
+    <v-container>
         <!-- TODO: we need a title for optin (like Profile Management is what we show in Profile.vue) we need to show a message here that user must optin to use the service, AND we need to disable all other account functions until we have an optin -->
         <div v-if="profileList.length === 0">
             <v-row justify="center"  class="py-5">

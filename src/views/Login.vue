@@ -1,5 +1,5 @@
 <template>
-    <v-container class="py-10 px-2">
+    <v-container>
         <v-row justify="center" class="py-5">
             <h1 class="display-1 font-weight-light">Login</h1>
         </v-row>
@@ -47,8 +47,8 @@
                         </v-card-actions>
                     </v-form>
                 </v-card>
-                <v-row justify="center" v-show="loginWithLoginShield">
-                    <div id="loginshield-content"></div>
+                <v-row justify="center" v-show="loginWithLoginShield" class="ma-0" style="width: 100%;">
+                    <div id="loginshield-content" style="width: 100%; height: 600px;"></div>
                 </v-row>
             </v-col>
         </v-row>
@@ -197,8 +197,8 @@ export default {
                 loginshieldInit({
                     elementId: 'loginshield-content',
                     backgroundColor: '#E8F5E9',
-                    width: 300,
-                    height: 400,
+                    // width: 300,
+                    // height: 400,
                     action: 'start',
                     forward,
                     onLogin: ((verifyInfo) => {
@@ -225,8 +225,8 @@ export default {
             loginshieldInit({
                 elementId: 'loginshield-content',
                 backgroundColor: '#E8F5E9',
-                width: 300,
-                height: 400,
+                // width: 300,
+                // height: 400,
                 action: 'resume',
                 forward,
                 onLogin: ((verifyInfo) => {
