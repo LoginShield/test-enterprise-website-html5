@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-row justify="center" class="py-5">
+        <v-row justify="center">
             <h1 class="display-1 font-weight-light">Login</h1>
         </v-row>
         <v-row justify="center" class="py-5">
