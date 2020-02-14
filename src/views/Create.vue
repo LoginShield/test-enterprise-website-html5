@@ -8,17 +8,23 @@
                 <v-card tile elevation="6" class="px-10 py-5">
                     <v-form v-model="createAccountForm" ref="createAccountFormRef" @submit="validateCreateAccount" onSubmit="return false;" @keyup.enter.native="validateCreateAccount">
                         <v-text-field
+                            outlined
+                            color="green"
                             v-model=username
                             label="Username"
                             :rules="usernameRules"
                             autofocus
                         ></v-text-field>
                         <v-text-field
+                            outlined
+                            color="green"
                             v-model=email
                             label="Email"
                             :rules="emailRules"
                         ></v-text-field>
                         <v-text-field
+                            outlined
+                            color="green"
                             v-model=password
                             label="Password"
                             :rules="passwordRules"
