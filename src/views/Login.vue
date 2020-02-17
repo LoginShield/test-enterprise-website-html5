@@ -57,7 +57,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { loginshieldInit } from '@loginshield/enterprise-client-browser';
+import { loginshieldInit } from '@cryptium/loginshield-realm-client-browser';
 import { isValidName, compact } from '@/sdk/input';
 
 export default {
