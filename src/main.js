@@ -39,6 +39,16 @@ library.add(faUser, faEnvelope, faPhone, faCheck, faFile, faCheckSquare, faSquar
 
 Vue.config.productionTip = false;
 
+// https://github.com/vuetifyjs/vuetify/issues/9999
+const ignoreWarnMessage = 'The .native modifier for v-on is only valid on components but it was used on <svg>.';
+Vue.config.warnHandler = (msg, vm, trace) => {
+    // `trace` is the component hierarchy trace
+    if (msg === ignoreWarnMessage) {
+        return;
+    }
+    console.warn(`${msg} vm: ${vm} trace: ${trace}`);
+};
+
 /*
 Example input:
 {
