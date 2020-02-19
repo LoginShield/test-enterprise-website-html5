@@ -9,13 +9,15 @@
                     <v-card-text class="title text-center">Security</v-card-text>
                     <v-divider class="mx-5 mb-5"></v-divider>
                     <v-row justify="center" class="pt-4 px-2">
-                        <p class="text-center subtitle">Now login once with LoginShield to complete the registration process:</p>
+                        <p class="text-center subtitle">You will receive login-related emails from LoginShield at the address shown below. Now let's login with LoginShield for the first time.</p>
                     </v-row>
+                    <!--
                     <v-row justify="center" class="pt-4">
                         <p class="body-1 font-weight-light text-center">
                             Username: {{account.username}}
                         </p>
                     </v-row>
+                    -->
                     <v-row justify="center">
                         <p class="body-1 font-weight-light text-center">
                             Email: {{account.email}}
