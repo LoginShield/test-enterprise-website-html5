@@ -43,15 +43,15 @@
 
 
                     <v-divider class="mx-5 mb-2"></v-divider>
-                    <v-row justify="center" class="pt-5 px-5" v-if="!account.loginshield.isRegistered">
+                    <v-row justify="center" class="pt-5 px-5" v-if="!account.loginshield.isRegistered || !account.loginshield.isConfirmed">
                         <p>Click the button to setup LoginShield for this account:</p>
                     </v-row>
-                    <v-row justify="center" class="pt-5 px-5 pb-3" v-if="!account.loginshield.isRegistered">
+                    <v-row justify="center" class="pt-5 px-5 pb-3" v-if="!account.loginshield.isRegistered || !account.loginshield.isConfirmed">
                         <v-btn tile elevation="6" class="green white--text" @click="registerLoginShieldUser">
                             <font-awesome-icon icon="check" fixed-width/><span class="ml-2">Enable</span>
                         </v-btn>
                     </v-row>
-                    <v-row justify="center" class="px-5 pb-3" v-if="account.loginshield.isRegistered">
+                    <v-row justify="center" class="px-5 pb-3" v-if="account.loginshield.isRegistered && account.loginshield.isConfirmed">
                         <v-switch
                             v-model="isLoginshieldEnabled"
                             color="blue"
@@ -98,7 +98,7 @@ export default {
             if (this.account && this.account.loginshield) {
                 return this.account.loginshield;
             }
-            return { isRegistered: false, isEnabled: false };
+            return { isRegistered: false, isConfirmed: false, isEnabled: false };
         },
         isLoginshieldEnabled: {
             get() {
@@ -160,22 +160,26 @@ export default {
         },
         async registerLoginShieldUser() {
             this.isRegistrationError = false;
-            const response = await this.$store.dispatch('editAccount', { action: 'register-loginshield-user' });
-            /* start redirect method */
-            if (response.forward) {
+            if (!this.account.loginshield.isRegistered) {
+                const response = await this.$store.dispatch('editAccount', { action: 'register-loginshield-user' });
+                /* start redirect method */
+                if (response.forward) {
                 // redirect user to loginshield.com for registration (or to /account/loginshield/continue-registration if user already did the loginshield part but hasn't completed the first login here)
-                window.location = response.forward;
-                return;
+                    window.location = response.forward;
+                    return;
+                }
+                /* end redirect method */
+                console.log('registerLoginShieldUser response from editAccount: %o', response);
+                if (!response.isEdited || response.error) {
+                    this.isRegistrationError = true;
+                    return;
+                }
             }
-            /* end redirect method */
-            console.log('registerLoginShieldUser response from editAccount: %o', response);
-            if (response.isEdited) {
+            if (!this.account.loginshield.isConfirmed) {
                 this.$router.push('/account/loginshield/continue-registration');
                 return;
             }
-            if (response.error) {
-                this.isRegistrationError = true;
-            }
+            this.isLoginshieldEnabled = true;
         },
     },
 
