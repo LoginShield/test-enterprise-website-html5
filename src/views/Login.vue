@@ -205,6 +205,8 @@ export default {
                     // height: 400,
                     action: 'start',
                     forward,
+                    onResult: this.onResult.bind(this),
+                    /*
                     onLogin: ((verifyInfo) => {
                         this.finishLoginShield(verifyInfo);
                     }),
@@ -213,6 +215,7 @@ export default {
                         this.loginshieldStartError = true;
                         this.resetLoginForm();
                     }),
+                    */
                 });
             } else {
                 // TODO: show a more specific error message that the account either doesn't exist or
@@ -224,6 +227,23 @@ export default {
                 this.resetLoginForm();
             }
         },
+        onResult(result) {
+            console.log('Login.vue: onResult: %o', result);
+            switch (result.status) {
+            case 'verify':
+                this.finishLoginShield({ verifyToken: result.verifyToken });
+                break;
+            case 'error':
+                this.loginshieldStartError = true;
+                this.resetLoginForm();
+                break;
+            case 'cancel':
+                this.resetLoginForm();
+                break;
+            default:
+                console.error(`Login.vue: onResult: unknown status ${result.status}`);
+            }
+        },
         async resumeLoginShield({ forward }) {
             this.resetErrors();
             loginshieldInit({
@@ -233,6 +253,8 @@ export default {
                 // height: 400,
                 action: 'resume',
                 forward,
+                onResult: this.onResult.bind(this),
+                /*
                 onLogin: ((verifyInfo) => {
                     this.finishLoginShield(verifyInfo);
                 }),
@@ -241,6 +263,7 @@ export default {
                     this.loginshieldStartError = true;
                     this.resetLoginForm();
                 }),
+                */
             });
         },
         async finishLoginShield({ verifyToken }) {
