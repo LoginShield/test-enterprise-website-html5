@@ -28,6 +28,11 @@ export default new Router({
             component: () => import(/* webpackChunkName: "account" */ './views/Account.vue'),
         },
         {
+            path: '/me',
+            name: 'me',
+            component: () => import(/* webpackChunkName: "me" */ './views/Me.vue'),
+        },
+        {
             path: '/account/loginshield/continue-registration',
             name: 'account-loginshield-continue-registration',
             component: () => import(/* webpackChunkName: "account-loginshield-continue-registration" */ './views/AccountLoginShieldContinueRegistration.vue'),
