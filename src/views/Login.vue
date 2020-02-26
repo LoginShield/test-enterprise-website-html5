@@ -135,10 +135,12 @@ export default {
             if (this.$route.query.mode === 'resume-loginshield' && this.$route.query.loginshield) {
                 // if the client arrives with this query parameter it
                 // indicates a loginshield authentication in progress
+                // displaye a safety notice and the user followed one
+                // of the redirect options to arrive here
                 console.log('login: resume loginshield authentication mode');
                 this.loginUsernameInput = false;
                 this.loginWithLoginShield = true;
-                this.resumeLoginShield({ forward: this.$route.query.loginshield });
+                this.resumeLoginShield({ forward: this.$route.query.loginshield, isTrusted: this.isRememberMeChecked });
                 return;
             }
             if (this.isAuthenticated) {
@@ -148,7 +150,7 @@ export default {
                     this.loginUsernameInput = false;
                     this.loginWithLoginShield = true;
                     console.log(`username: ${this.account.username}`);
-                    this.startLoginShield({ mode: 'activate-loginshield', username: this.account.username });
+                    this.startLoginShield({ mode: 'activate-loginshield', username: this.account.username, isTrusted: this.isRememberMeChecked });
                 } else {
                     // in all other cases, if user already authenticated redirect to account page:
                     this.$router.push('/account');
@@ -191,7 +193,7 @@ export default {
             } else if (mechanism === 'loginshield') {
                 this.loginUsernameInput = false;
                 this.loginWithLoginShield = true;
-                this.startLoginShield({ username: this.username });
+                this.startLoginShield({ username: this.username, isTrusted: this.isRememberMeChecked });
             } else {
                 this.passwordError = true;
                 this.resetLoginForm();
@@ -213,7 +215,7 @@ export default {
                 this.resetLoginForm();
             }
         },
-        async startLoginShield({ mode, username }) {
+        async startLoginShield({ mode, username, isTrusted }) {
             this.resetErrors();
             const { error, forward } = await this.$store.dispatch('loginWithLoginShield', {
                 username,
@@ -234,6 +236,7 @@ export default {
                     action: 'start',
                     mode: loginMode,
                     forward,
+                    isTrusted,
                     onResult: this.onResult.bind(this),
                     /*
                     onLogin: ((verifyInfo) => {
@@ -277,7 +280,7 @@ export default {
                 console.error(`Login.vue: onResult: unknown status ${result.status}`);
             }
         },
-        async resumeLoginShield({ forward }) {
+        async resumeLoginShield({ forward, isTrusted }) {
             this.resetErrors();
             loginshieldInit({
                 elementId: 'loginshield-content',
@@ -286,6 +289,7 @@ export default {
                 // height: 400,
                 action: 'resume',
                 forward,
+                isTrusted,
                 onResult: this.onResult.bind(this),
                 /*
                 onLogin: ((verifyInfo) => {
