@@ -262,6 +262,10 @@ export default {
                 this.resetLoginForm();
                 break;
             case 'cancel':
+                if (this.isAuthenticated && this.$route.query.mode === 'activate-loginshield') {
+                    this.$router.push('/account');
+                    return;
+                }
                 this.resetLoginForm();
                 break;
             default:
