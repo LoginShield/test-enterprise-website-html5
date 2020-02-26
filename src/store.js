@@ -64,6 +64,8 @@ export default new Vuex.Store({
             commit('setSession', { ...state.session, isAuthenticated });
             if (isAuthenticated) {
                 await dispatch('loadAccount');
+            } else {
+                commit('setAccount', {});
             }
             commit('loading', { loginWithPassword: false });
             return { isAuthenticated, error };
@@ -74,10 +76,14 @@ export default new Vuex.Store({
             const {
                 isAuthenticated, error, forward,
             } = await client.session.loginWithLoginShield({ username, mode, verifyToken });
-            // https://vuex.vuejs.org/guide/mutations.html#mutations-follow-vue-s-reactivity-rules
-            commit('setSession', { ...state.session, isAuthenticated });
-            if (isAuthenticated) {
-                await dispatch('loadAccount');
+            // https://vuex.vuejs.org/guide/mutations.html#mutations-follow-vue-s-reactivity-rules'
+            if (verifyToken) {
+                commit('setSession', { ...state.session, isAuthenticated });
+                if (isAuthenticated) {
+                    await dispatch('loadAccount');
+                } else {
+                    commit('setAccount', {});
+                }
             }
             commit('loading', { loginWithLoginShield: false });
             return {
