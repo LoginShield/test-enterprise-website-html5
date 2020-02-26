@@ -48,7 +48,7 @@
                     </v-row>
                     <v-row justify="center" class="pt-5 px-5 pb-3" v-if="!account.loginshield.isRegistered || !account.loginshield.isConfirmed">
                         <v-btn tile elevation="6" class="green white--text" @click="registerLoginShieldUser">
-                            <font-awesome-icon icon="check" fixed-width/><span class="ml-2">Enable</span>
+                            <font-awesome-icon icon="check" fixed-width/><span class="ml-2">Activate</span>
                         </v-btn>
                     </v-row>
                     <v-row justify="center" class="px-5 pb-3" v-if="account.loginshield.isRegistered && account.loginshield.isConfirmed">

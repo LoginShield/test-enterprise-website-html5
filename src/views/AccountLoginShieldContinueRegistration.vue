@@ -25,7 +25,7 @@
                     </v-row>
                     <v-row justify="center" class="pt-2">
                         <v-btn tile elevation="6" class="green white--text" @click="login">
-                            Login
+                            Continue
                         </v-btn>
                     </v-row>
                 </v-card>
