@@ -196,6 +196,10 @@ export default {
                 mode,
             });
             if (forward) {
+                let loginMode = null;
+                if (mode === 'activate-loginshield') {
+                    loginMode = 'link-device'; // disable notifications for this login request
+                }
                 // redirect to loginshield for login
                 // this works, it's the redirect method: window.location = forward;
                 loginshieldInit({
@@ -204,6 +208,7 @@ export default {
                     // width: 300,
                     // height: 400,
                     action: 'start',
+                    mode: loginMode,
                     forward,
                     onResult: this.onResult.bind(this),
                     /*
