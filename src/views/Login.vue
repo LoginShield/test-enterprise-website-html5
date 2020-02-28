@@ -261,6 +261,10 @@ export default {
                 this.finishLoginShield({ verifyToken: result.verifyToken });
                 break;
             case 'error':
+                if (this.isAuthenticated && this.$route.query.mode === 'activate-loginshield') {
+                    this.$router.push('/account');
+                    return;
+                }
                 this.loginshieldStartError = true;
                 this.resetLoginForm();
                 break;
