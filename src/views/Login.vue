@@ -19,7 +19,7 @@
                             ref="usernameField"
                         ></v-text-field>
                         </v-row>
-                        <!-- <v-row>
+                        <v-row>
                             <v-tooltip top>
                                 <template v-slot:activator="{ on }">
                                     <v-checkbox
@@ -29,9 +29,9 @@
                                         label="Remember Me">
                                     </v-checkbox>
                                 </template>
-                                <span>Receive push notifications from this device</span>
+                                <span>Allow push notifications from this website</span>
                             </v-tooltip>
-                        </v-row> -->
+                        </v-row>
                         <v-row justify="center" v-if="passwordError">
                             <p class="body-1 font-weight-light red--text">Incorrect username or password</p>
                         </v-row>
@@ -101,6 +101,7 @@ export default {
             ],
             passwordError: false,
             loginshieldStartError: false,
+            isRememberMeChecked: null,
         };
     },
 
@@ -109,6 +110,10 @@ export default {
             if (value && !oldValue) {
                 this.init();
             }
+        },
+        isRememberMeChecked(value) {
+            console.log(`Login.vue: isRememberMeChecked watcher: storing ${value}`);
+            localStorage.setItem('rememberMe', value);
         },
     },
 
@@ -121,15 +126,6 @@ export default {
         ...mapGetters({
             isAuthenticated: 'isAuthenticated',
         }),
-        // isRememberMeChecked: {
-        //     get() {
-        //         const val = localStorage.getItem('isRememberMeChecked');
-        //         return val === 'true';
-        //     },
-        //     set(value) {
-        //         localStorage.setItem('isRememberMeChecked', value);
-        //     },
-        // },
     },
 
     methods: {
@@ -142,7 +138,7 @@ export default {
                 console.log('login: resume loginshield authentication mode');
                 this.loginUsernameInput = false;
                 this.loginWithLoginShield = true;
-                this.resumeLoginShield({ forward: this.$route.query.loginshield, isTrusted: this.isRememberMeChecked });
+                this.resumeLoginShield({ forward: this.$route.query.loginshield, rememberMe: this.isRememberMeChecked });
                 return;
             }
             if (this.isAuthenticated) {
@@ -153,7 +149,7 @@ export default {
                     this.loginWithLoginShield = true;
                     this.isActivatingLoginShield = true;
                     console.log(`username: ${this.account.username}`);
-                    this.startLoginShield({ mode: 'activate-loginshield', username: this.account.username, isTrusted: this.isRememberMeChecked });
+                    this.startLoginShield({ mode: 'activate-loginshield', username: this.account.username, rememberMe: this.isRememberMeChecked });
                 } else {
                     // in all other cases, if user already authenticated redirect to account page:
                     this.$router.push('/account');
@@ -161,6 +157,7 @@ export default {
             }
         },
         validateUsername() {
+            console.log('Login.vue: validateUsername');
             if (this.$refs.loginUsernameFormRef.validate()) {
                 this.loginUsername();
             }
@@ -185,6 +182,7 @@ export default {
             this.$refs.passwordField.reset();
         },
         async loginUsername() {
+            console.log('Login.vue: loginUsername');
             this.passwordError = false;
             const { mechanism } = await this.$store.dispatch('login', {
                 username: this.username,
@@ -196,7 +194,7 @@ export default {
             } else if (mechanism === 'loginshield') {
                 this.loginUsernameInput = false;
                 this.loginWithLoginShield = true;
-                this.startLoginShield({ username: this.username, isTrusted: this.isRememberMeChecked });
+                this.startLoginShield({ username: this.username, rememberMe: this.isRememberMeChecked });
             } else {
                 this.passwordError = true;
                 this.resetLoginForm();
@@ -218,7 +216,8 @@ export default {
                 this.resetLoginForm();
             }
         },
-        async startLoginShield({ mode, username, isTrusted }) {
+        async startLoginShield({ mode, username, rememberMe }) {
+            console.log(`Login.vue: startLoginShield mode ${mode} username ${username} rememberMe ${rememberMe}`);
             this.resetErrors();
             const { error, forward } = await this.$store.dispatch('loginWithLoginShield', {
                 username,
@@ -239,7 +238,7 @@ export default {
                     action: 'start',
                     mode: loginMode,
                     forward,
-                    isTrusted,
+                    rememberMe,
                     onResult: this.onResult.bind(this),
                     /*
                     onLogin: ((verifyInfo) => {
@@ -291,7 +290,7 @@ export default {
                 console.error(`Login.vue: onResult: unknown status ${result.status}`);
             }
         },
-        async resumeLoginShield({ forward, isTrusted }) {
+        async resumeLoginShield({ forward, rememberMe }) {
             this.resetErrors();
             loginshieldInit({
                 elementId: 'loginshield-content',
@@ -300,7 +299,7 @@ export default {
                 // height: 400,
                 action: 'resume',
                 forward,
-                isTrusted,
+                rememberMe,
                 onResult: this.onResult.bind(this),
                 /*
                 onLogin: ((verifyInfo) => {
@@ -340,6 +339,12 @@ export default {
         if (this.isReady) {
             this.init();
         }
+    },
+
+    created() {
+        const rememberMeStored = localStorage.getItem('rememberMe');
+        this.isRememberMeChecked = rememberMeStored === 'true';
+        console.log(`Login.vue: rememberMe stored ${rememberMeStored} checked ${this.isRememberMeChecked}`);
     },
 };
 </script>
