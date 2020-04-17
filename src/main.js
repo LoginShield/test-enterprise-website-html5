@@ -16,8 +16,8 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import Vue from 'vue';
-import Vuetify from 'vuetify';
-import 'vuetify/dist/vuetify.min.css';
+import Vuetify from 'vuetify/lib';
+// import 'vuetify/dist/vuetify.min.css';
 import App from './App.vue';
 import router from './router';
 import store from './store';
