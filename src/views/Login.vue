@@ -77,7 +77,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import { loginshieldInit } from '@cryptium/tigercomet-realm-client-browser';
+import { loginshieldInit } from '@loginshield/realm-client-browser';
 import { isValidName, compact } from '@/sdk/input';
 
 export default {
