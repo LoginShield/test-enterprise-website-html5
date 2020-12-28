@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <AppLayout>
         <!-- TODO: we need a title for optin (like Profile Management is what we show in Profile.vue) we need to show a message here that user must optin to use the service, AND we need to disable all other account functions until we have an optin -->
         <div v-if="profileList.length === 0">
             <v-row justify="center"  class="py-5">
@@ -19,12 +19,13 @@
                 </div>
             </v-col>
         </v-row>
-    </v-container>
+    </AppLayout>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 // import { Client } from '@/client';
+import AppLayout from '@/components/AppLayout.vue';
 
 export default {
     data() {
@@ -32,6 +33,9 @@ export default {
             isViewReady: false,
             loading: false,
         };
+    },
+    components: {
+        AppLayout,
     },
     methods: {
         async init() {
@@ -98,8 +102,8 @@ export default {
     },
     computed: {
         ...mapState({
-            isReady: state => state.isReady,
-            session: state => state.session,
+            isReady: (state) => state.isReady,
+            session: (state) => state.session,
         }),
         ...mapGetters({
             currentAccount: 'account',

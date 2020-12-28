@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <AppLayout>
         <v-row justify="center" class="py-5">
             <h1 class="display-1 font-weight-light">Create new account</h1>
         </v-row>
@@ -44,12 +44,13 @@
                 </v-card>
             </v-col>
         </v-row>
-    </v-container>
+    </AppLayout>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import { isValidName, isValidEmail, compact } from '@/sdk/input';
+import AppLayout from '@/components/AppLayout.vue';
 
 export default {
     data() {
@@ -59,24 +60,26 @@ export default {
             password: null,
             email: null,
             usernameRules: [
-                v => !!v || 'Username is required',
-                v => !v || isValidName(compact(v)) || 'Username is required',
+                (v) => !!v || 'Username is required',
+                (v) => !v || isValidName(compact(v)) || 'Username is required',
             ],
             emailRules: [
-                v => !!v || 'Email address is required',
-                v => !v || isValidEmail(v) || 'Email address is required',
+                (v) => !!v || 'Email address is required',
+                (v) => !v || isValidEmail(v) || 'Email address is required',
             ],
             passwordRules: [
-                v => !!v || 'Password is required',
-                v => !v || isValidName(compact(v)) || 'Password is required',
+                (v) => !!v || 'Password is required',
+                (v) => !v || isValidName(compact(v)) || 'Password is required',
             ],
             error: false,
         };
     },
-
+    components: {
+        AppLayout,
+    },
     computed: {
         ...mapState({
-            isReady: state => state.isReady,
+            isReady: (state) => state.isReady,
         }),
         ...mapGetters({
             isAuthenticated: 'isAuthenticated',

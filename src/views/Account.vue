@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <AppLayout>
         <v-snackbar v-model="snackbarLoginshieldEnabled" :timeout="2000" top :color="loginshieldSnackbarColor" class="mt-0 pt-0">
             <span>{{ loginshieldSnackbarText }}</span>
             <v-btn text :class="loginshieldSnackbarClass" @click="snackbarLoginshieldEnabled = false"><font-awesome-icon icon="check" fixed-width/></v-btn>
@@ -41,7 +41,6 @@
                         </v-tooltip>
                     </v-card-text>
 
-
                     <v-divider class="mx-5 mb-2"></v-divider>
                     <v-row justify="center" class="pt-5 px-5" v-if="!account.loginshield.isRegistered || !account.loginshield.isConfirmed">
                         <p>Click the button to setup LoginShield for this account:</p>
@@ -68,11 +67,12 @@
                 </v-card>
             </v-col>
         </v-row>
-    </v-container>
+    </AppLayout>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import AppLayout from '@/components/AppLayout.vue';
 
 export default {
     data() {
@@ -84,12 +84,14 @@ export default {
             loginshieldSnackbarColor: '',
         };
     },
-
+    components: {
+        AppLayout,
+    },
     computed: {
         ...mapState({
-            isReady: state => state.isReady,
-            session: state => state.session,
-            account: state => state.account,
+            isReady: (state) => state.isReady,
+            session: (state) => state.session,
+            account: (state) => state.account,
         }),
         ...mapGetters({
             isAuthenticated: 'isAuthenticated',

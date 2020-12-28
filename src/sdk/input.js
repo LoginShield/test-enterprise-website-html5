@@ -3,7 +3,6 @@ Copyright (C) 2019 Cryptium Corporation. All rights reserved.
 */
 /* eslint-disable no-console */
 
-
 const nameRegex = new RegExp('[A-Z0-9]', 'i'); // simple rule: just has to include a letter or digit; TODO: allow all unicode letters
 const emailRegex = new RegExp('^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$', 'i');
 const phoneRegex = new RegExp('^[0-9#*()+,. -]+$', 'i');

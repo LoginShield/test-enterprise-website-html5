@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <AppLayout>
         <v-row justify="center" class="py-5">
             <h1 class="display-1 font-weight-light">Account</h1>
         </v-row>
@@ -31,23 +31,26 @@
                 </v-card>
             </v-col>
         </v-row>
-    </v-container>
+    </AppLayout>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import AppLayout from '@/components/AppLayout.vue';
 
 export default {
     data() {
         return {
         };
     },
-
+    components: {
+        AppLayout,
+    },
     computed: {
         ...mapState({
-            isReady: state => state.isReady,
-            session: state => state.session,
-            account: state => state.account,
+            isReady: (state) => state.isReady,
+            session: (state) => state.session,
+            account: (state) => state.account,
         }),
         ...mapGetters({
             isAuthenticated: 'isAuthenticated',

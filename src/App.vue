@@ -1,9 +1,16 @@
 <template>
     <v-app>
-        <Navbar app/>
+        <Navbar/>
+        <v-main style="height: 100%;" class="green lighten-5"> <!--  py-10 px-3 (putting this here prevents the front page from doing full-wdith background color changes in sections) -->
+            <v-container style="margin-top: 16px;"> <!-- class="ma-0 pa-0"  -->
+                <router-view></router-view>
+            </v-container>
+        </v-main>
+        <!-- old
         <v-content style="margin-top: 48px;" class="green lighten-5 py-10 px-3">
             <router-view></router-view>
         </v-content>
+        -->
         <Footer/>
     </v-app>
 </template>
@@ -13,7 +20,6 @@
     font-family: 'NunitoSans', sans-serif
   } */
 </style>
-
 
 <script>
 // import '@/assets/font/NunitoSans/NunitoSans.css'

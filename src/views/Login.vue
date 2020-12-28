@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <AppLayout>
         <v-row justify="center" class="pt-5">
             <h1 class="display-1 font-weight-light" v-show="isActivatingLoginShield">Account</h1>
             <h1 class="display-1 font-weight-light" v-show="!isActivatingLoginShield">Login</h1>
@@ -72,13 +72,14 @@
                 </v-row>
             </v-col>
         </v-row>
-    </v-container>
+    </AppLayout>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import { loginshieldInit } from '@loginshield/realm-client-browser';
 import { isValidName, compact } from '@/sdk/input';
+import AppLayout from '@/components/AppLayout.vue';
 
 export default {
     data() {
@@ -92,19 +93,21 @@ export default {
             username: null,
             password: null,
             usernameRules: [
-                v => !!v || 'Username is required',
-                v => !v || isValidName(compact(v)) || 'Username is required',
+                (v) => !!v || 'Username is required',
+                (v) => !v || isValidName(compact(v)) || 'Username is required',
             ],
             passwordRules: [
-                v => !!v || 'Password is required',
-                v => !v || isValidName(compact(v)) || 'Password is required',
+                (v) => !!v || 'Password is required',
+                (v) => !v || isValidName(compact(v)) || 'Password is required',
             ],
             passwordError: false,
             loginshieldStartError: false,
             isRememberMeChecked: null,
         };
     },
-
+    components: {
+        AppLayout,
+    },
     watch: {
         isReady(value, oldValue) {
             if (value && !oldValue) {
@@ -119,9 +122,9 @@ export default {
 
     computed: {
         ...mapState({
-            isReady: state => state.isReady,
-            session: state => state.session,
-            account: state => state.account,
+            isReady: (state) => state.isReady,
+            session: (state) => state.session,
+            account: (state) => state.account,
         }),
         ...mapGetters({
             isAuthenticated: 'isAuthenticated',

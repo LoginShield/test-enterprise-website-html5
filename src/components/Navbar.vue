@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <v-app-bar fixed fade-on-scroll elevation="4" height="48">
+        <v-app-bar fixed fade-on-scroll elevation="4" height="48" app>
             <router-link to="/" style="text-decoration: none" v-if="!isAuthenticated">
                 <v-toolbar-title class="green--text overline" style="font-size: 16px!important;">
                     LoginShield Demo
@@ -102,8 +102,8 @@ export default {
 
     computed: {
         ...mapState({
-            isAuthenticated: state => state.session.isAuthenticated,
-            account: state => state.account,
+            isAuthenticated: (state) => state.session.isAuthenticated,
+            account: (state) => state.account,
         }),
         ...mapGetters({
             isLoading: 'isLoading',

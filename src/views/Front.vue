@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <AppLayout>
         <v-row justify="center"  class="py-5">
             <v-col>
                 <v-row justify="center">
@@ -40,7 +40,7 @@
         <v-row justify="center">
             <v-btn tile elevation="24" class="green white--text" to="/create">Create account</v-btn>
         </v-row>
-    </v-container>
+    </AppLayout>
 </template>
 
 <style scoped>
@@ -49,14 +49,16 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import AppLayout from '@/components/AppLayout.vue';
 
 export default {
     components: {
+        AppLayout,
     },
     computed: {
         ...mapState({
-            isReady: state => state.isReady,
-            session: state => state.session,
+            isReady: (state) => state.isReady,
+            session: (state) => state.session,
         }),
         ...mapGetters({
             currentAccount: 'account', // currently selected account object

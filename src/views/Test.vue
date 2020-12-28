@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <AppLayout>
         <v-row justify="center" class="pa-5 pb-10">
                 <h1 class="overline" style="font-size: 34px!important;">Test</h1>
         </v-row>
@@ -70,8 +70,7 @@
                 </v-expansion-panels>
             </v-col>
         </v-row>
-
-    </v-container>
+    </AppLayout>
 </template>
 
 <style scoped>
@@ -91,6 +90,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import { Client } from '@/client';
+import AppLayout from '@/components/AppLayout.vue';
 
 const client = new Client();
 
@@ -100,10 +100,9 @@ const TestModule = {
     },
 };
 
-
 export default {
     components: {
-
+        AppLayout,
     },
     data() {
         return {
@@ -120,10 +119,10 @@ export default {
             return JSON.stringify(this.localStorageInfo, null, 2);
         },
         ...mapState({
-            isReady: state => state.isReady,
-            context: state => state.context,
-            session: state => state.session,
-            accountMap: state => state.account,
+            isReady: (state) => state.isReady,
+            context: (state) => state.context,
+            session: (state) => state.session,
+            accountMap: (state) => state.account,
         }),
         ...mapGetters({
             account: 'account',

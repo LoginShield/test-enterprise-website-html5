@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <AppLayout>
         <v-row justify="center">
             <v-col class="text-center">
                 <h1 class="display-2 font-weight-light py-5">About Me</h1>
@@ -129,10 +129,12 @@
                 </div>
             </v-col>
         </v-row>
-    </v-container>
+    </AppLayout>
 </template>
 
 <script>
+import AppLayout from '@/components/AppLayout.vue';
+
 export default {
     data() {
         return {
@@ -176,6 +178,9 @@ export default {
             */
             ],
         };
+    },
+    components: {
+        AppLayout,
     },
     created() {
     // index by key

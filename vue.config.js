@@ -8,11 +8,17 @@ const ifdefOptions = {
 // https://github.com/nippur72/ifdef-loader
 // https://webpack.js.org/configuration/dev-server/
 module.exports = {
+    publicPath: process.env.VUE_APP_WEBSITE_PATH || '/',
     devServer: {
-        host: process.env.HOST || 'localhost',
-        public: process.env.HOST || 'localhost',
-        sockHost: process.env.HOST || 'localhost',
-        sockPort: process.env.HOST ? 443 : 8080,
+        port: process.env.LISTEN_PORT || '80',
+        host: process.env.LISTEN_IPADDR || '127.0.0.1',
+        public: process.env.URL_HOST || 'localhost',
+        allowedHosts: [
+            process.env.URL_HOST,
+        ],
+        watchOptions: {
+            ignored: [/node_modules/],
+        },
     },
     configureWebpack: (config) => {
         config.module.rules.push({

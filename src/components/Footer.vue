@@ -1,5 +1,5 @@
 <template>
-    <v-footer dark padless>
+    <v-footer dark padless app>
         <v-row justify="center" no-gutters>
             <v-col cols="12" class="green pa-0">
                 <v-row justify="center" align="center" class="py-1 px-6 ma-0">
