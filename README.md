@@ -1,4 +1,4 @@
-website-test-enterprise-html5
+test-enterprise-website-html5
 =============================
 
 To run the test service locally, you'll need to:
@@ -6,6 +6,15 @@ To run the test service locally, you'll need to:
 1. Follow directions in [Developer setup]
 2. Set the [Environment variables]
 3. Follow directions in [Start] for this service
+
+In `package.json` you'll see this dependency:
+
+```
+    "@loginshield/realm-client-browser": "^0.1.0",
+```
+
+The `@loginshield/realm-client-browser` is part of the LoginShield Enterprise SDK,
+and you can see how it is used `src/views/Login.vue`.
 
 # Developer setup
 
