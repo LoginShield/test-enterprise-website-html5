@@ -19,7 +19,7 @@ npm install
 
 LISTEN_PORT
 : where the service should accept connections
-: an integer, e.g. `7100`
+: an integer, e.g. `7102`
 : required
 
 LISTEN_IPADDR
