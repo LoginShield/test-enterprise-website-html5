@@ -1,5 +1,5 @@
 {
-  "name": "tigercomet-website-test-enterprise-html5",
+  "name": "@loginshield/test-enterprise-website-html5",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,6 +11,19 @@
     "test:unit": "vue-cli-service test:unit",
     "test": "npm run test:unit && npm run test:e2e"
   },
+  "homepage": "https://loginshield.com",
+  "bugs": {
+    "url": "https://github.com/loginshield/test-enterprise-website-html5/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loginshield/test-enterprise-website-html5.git"
+  },
+  "license": "BSD-2-Clause",
+  "author": "Cryptium <someone@cryptium.com> (https://cryptium.com)",
+  "contributors": [
+    "Jonathan Buhacoff <jonathan@cryptium.com> (https://github.com/jbuhacoff)"
+  ],
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-brands-svg-icons": "^5.15.1",
