@@ -36,7 +36,7 @@
                         <v-row justify="center">
                             <v-card-actions>
                                 <v-btn tile elevation="6" class="green white--text" @click="createAccount" :disabled="!createAccountForm">
-                                    <font-awesome-icon icon="check" fixed-width/>&nbsp;Create
+                                    <font-awesome-icon icon="check" fixed-width/><span class="ml-2">Create</span>
                                 </v-btn>
                             </v-card-actions>
                         </v-row>
