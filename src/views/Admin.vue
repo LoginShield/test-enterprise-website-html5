@@ -15,38 +15,41 @@
                         <v-tooltip top>
                             <template v-slot:activator="{ on }">
                                 <span class="pr-5" style="position: absolute; right: 0;" v-on="on">
-                                    <font-awesome-icon icon="exclamation-triangle" class="orange--text" v-show="isEnabledCheckComplete && !isLoginshieldEnabled"/>
+                                    <v-progress-circular indeterminate color="green" size="32" v-if="isEnabledCheckPending"></v-progress-circular>
+                                    <font-awesome-icon icon="exclamation-triangle" class="orange--text" v-if="!isEnabledCheckPending && isEnabledCheckComplete && !isLoginshieldEnabled"/>
                                 </span>
                             </template>
                             <span>Action required</span>
                         </v-tooltip>
                     </v-card-text>
-                    <v-divider class="mx-5 mb-5"></v-divider>
-                    <v-row justify="center" class="px-5" v-if="isEnabledCheckComplete && !realmId">
-                        <p class="font-weight-light text-center">
-                            LoginShield is not yet configured.
-                        </p>
-                    </v-row>
-                    <v-row justify="center" class="px-5" v-if="isEnabledCheckComplete && realmId">
-                        <p class="font-weight-light text-center">
-                            Realm ID: {{realmId}}
-                        </p>
-                    </v-row>
-                    <v-row justify="center" class="px-5" v-if="isEnabledCheckComplete && !isLoginshieldEnabled">
-                        <p class="font-weight-light text-center">
-                            Continue to LoginShield to setup the enterprise account.
-                        </p>
-                    </v-row>
-                    <!-- <v-row justify="center" class="px-5">
-                        <p class="font-weight-light text-center">
-                            Email: {{account.email}}
-                        </p>
-                    </v-row> -->
-                    <v-row justify="center" class="pt-5 px-5 pb-3" v-if="isEnabledCheckComplete && !isLoginshieldEnabled">
-                        <v-btn tile elevation="6" class="green white--text" @click="requestAdminAccess">
-                            <span>Continue</span>
-                        </v-btn>
-                    </v-row>
+                    <div v-if="isEnabledCheckComplete">
+                        <v-divider class="mx-5 mb-5"></v-divider>
+                        <v-row justify="center" class="px-5" v-if="!realmId">
+                            <p class="font-weight-light text-center">
+                                LoginShield is not yet configured.
+                            </p>
+                        </v-row>
+                        <v-row justify="center" class="px-5" v-if="realmId">
+                            <p class="font-weight-light text-center">
+                                Realm ID: {{realmId}}
+                            </p>
+                        </v-row>
+                        <v-row justify="center" class="px-5" v-if="!isLoginshieldEnabled">
+                            <p class="font-weight-light text-center">
+                                Continue to LoginShield to setup the enterprise account.
+                            </p>
+                        </v-row>
+                        <!-- <v-row justify="center" class="px-5">
+                            <p class="font-weight-light text-center">
+                                Email: {{account.email}}
+                            </p>
+                        </v-row> -->
+                        <v-row justify="center" class="pt-5 px-5 pb-3" v-if="!isLoginshieldEnabled">
+                            <v-btn tile elevation="6" class="green white--text" @click="requestAdminAccess">
+                                <span>Continue</span>
+                            </v-btn>
+                        </v-row>
+                    </div>
                 </v-card>
             </v-col>
         </v-row>
@@ -59,6 +62,7 @@ import AppLayout from '@/components/AppLayout.vue';
 export default {
     data() {
         return {
+            isEnabledCheckPending: false, // true while we're checking if LoginShield is enabled
             isEnabledCheckComplete: false, // will be set to true after we check if LoginShield is enabled
             isLoginshieldEnabled: false,
             realmId: null,
@@ -91,6 +95,7 @@ export default {
         async checkIsEnabled() {
             // check if LoginShield is enabled
             try {
+                this.isEnabledCheckPending = true;
                 // if realm id is undefined, returns false; if realm id is defined, attempts a query to check if we have admin access
                 const {
                     isEnabled, realmId, icon, error, webauthz,
@@ -103,6 +108,7 @@ export default {
             } catch (err) {
                 console.error('checkIsEnabled failed', err);
             } finally {
+                this.isEnabledCheckPending = false;
                 this.isEnabledCheckComplete = true;
             }
         },
