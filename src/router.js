@@ -13,6 +13,11 @@ const router = new Router({
             component: () => import(/* webpackChunkName: "front" */ './views/Front.vue'),
         },
         {
+            path: '/admin',
+            name: 'admin',
+            component: () => import(/* webpackChunkName: "admin" */ './views/Admin.vue'),
+        },
+        {
             path: '/login',
             name: 'login',
             component: () => import(/* webpackChunkName: "login" */ './views/Login.vue'),
@@ -48,6 +53,11 @@ const router = new Router({
             path: '/create',
             name: 'create',
             component: () => import(/* webpackChunkName: "create" */ './views/Create.vue'),
+        },
+        {
+            path: '/webauthz/grant',
+            name: 'webauthz-grant',
+            component: () => import(/* webpackChunkName: "webauthz-grant" */ './views/WebauthzGrant.vue'),
         },
         // #if !production
         {

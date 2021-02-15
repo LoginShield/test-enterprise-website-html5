@@ -12,6 +12,7 @@ export default new Vuex.Store({
         isReady: false, // indicates that we loaded session info from server, so we know if user is authenticated; and if user is authenticated, that we've also loaded user info and account info from server
         serviceContext: {}, // stripeTokenPublicKey
         serviceVersion: {}, // version
+        loginshield: { realmId: null, isEnabled: false, fault: null },
         session: { isAuthenticated: false },
         account: { username: null, email: null, loginshield: { isRegistered: false, isEnabled: false } },
         loadingMap: { loadSession: true },
@@ -34,6 +35,9 @@ export default new Vuex.Store({
         },
         setServiceVersion(state, versionInfo) {
             state.serviceVersion = versionInfo;
+        },
+        setLoginShield(state, info) {
+            state.loginshield = info;
         },
         setSession(state, session) {
             state.session = session;
@@ -185,6 +189,21 @@ export default new Vuex.Store({
             }
             commit('loading', { createAccount: false });
             return response;
+        },
+        async checkIsEnabled({ commit }) {
+            try {
+                commit('loading', { checkIsEnabled: true });
+                const response = await client.service.getLoginShieldInfo();
+                commit('setLoginShield', response);
+                return response;
+            } catch (err) {
+                console.error('store.js: checkIsEnabled: failed', err);
+                const response = { realmId: null, isEnabled: false, fault: 'cannot get service status' };
+                commit('setLoginShield', response);
+                return response;
+            } finally {
+                commit('loading', { checkIsEnabled: false });
+            }
         },
     },
 });

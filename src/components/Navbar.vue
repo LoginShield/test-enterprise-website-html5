@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <v-app-bar fixed fade-on-scroll elevation="4" height="48" app>
+        <v-app-bar fixed fade-on-scroll elevation="4" height="48" app color="grey lighten-4">
             <router-link to="/" style="text-decoration: none" v-if="!isAuthenticated">
                 <v-toolbar-title class="green--text overline" style="font-size: 16px!important;">
                     LoginShield Demo
@@ -21,9 +21,10 @@
             <v-spacer></v-spacer>
             <div v-if="!isAuthenticated">
                 <div v-show="$vuetify.breakpoint.smAndUp">
-                    <v-tabs slider-color="green" right color="green">
+                    <v-tabs slider-color="green" right color="green" background-color="grey lighten-4">
                         <v-tab to="/" v-show="false"></v-tab>
                         <!-- <v-tab to="/software">Software</v-tab> -->
+                        <v-tab to="/admin">Admin</v-tab>
                         <v-tab to="/login">Login</v-tab>
                     </v-tabs>
                 </div>
@@ -34,9 +35,10 @@
                                 <font-awesome-icon right class="green--text" icon="bars" fixed-width/>
                             </v-btn>
                         </template>
-                        <v-tabs vertical slider-color="green" color="green">
+                        <v-tabs vertical slider-color="green" color="green" background-color="grey lighten-4">
                             <v-tab to="/" v-show="false"></v-tab>
                             <!-- <v-tab class="ml-0" to="/software">Software</v-tab> -->
+                            <v-tab to="/admin">Admin</v-tab>
                             <v-tab to="/login">Login</v-tab>
                         </v-tabs >
                     </v-menu>

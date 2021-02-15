@@ -24,6 +24,21 @@ npm install
 
 # Operation
 
+There are two modes of operation for this test website:
+
+1. Pre-configured Realm ID and Authorization Token, useful for testing realm logins
+2. Auto-configured Realm ID and Authorization Token, useful for testing Webauthz and then realm logins
+
+The steps to start the website are the same. The server configuration is different (see `test-enterprise-service-node-js`).
+
+To test the pre-configured server, start with "Create Account", then activate LoginShield from
+the account settings.
+
+To test the auto-configured server, start with "Administrator Setup", then return to the front
+page and continue with "Create Account", then activate LoginShield from the account settings.
+
+The "Administrator Setup" steps would normally require an authenicated administrator in production.
+
 ## Environment variables
 
 LISTEN_PORT

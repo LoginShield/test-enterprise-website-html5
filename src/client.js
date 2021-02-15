@@ -66,6 +66,14 @@ class Service {
     async getVersion() {
         return getJson('/version');
     }
+
+    async getLoginShieldInfo() {
+        return getJson('/admin/loginshield');
+    }
+
+    async finishWebauthzRequest(request) {
+        return postJsonAcceptJson('/admin/loginshield-webauthz-grant', request);
+    }
 }
 
 class Session {
